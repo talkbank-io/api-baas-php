@@ -104,7 +104,7 @@ class Client
         $response = $this->guzzle->request($method, $path, [
             'query'     => $query,
             'body'      => $body,
-            'debug'     => true,
+        //  'debug'     => true,
             'headers'   => [
                 'TB-Content-SHA256' => trim($hashBody),
                 'Date'              => trim($date),
