@@ -81,7 +81,6 @@ class Client
         $headers = array_change_key_case([
             'TB-Content-SHA256' => trim($hashBody),
             'Date' => trim($date),
-            'Host' => parse_url($this->guzzle->getConfig('base_uri'), PHP_URL_HOST)
         ], CASE_LOWER);
 
         ksort($headers);
