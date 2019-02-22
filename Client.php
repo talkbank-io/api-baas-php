@@ -158,6 +158,7 @@ class Client
             'body'      => $body,
         //  'debug'     => true,
             'headers'   => [
+                'Content-Type'      => 'application/json',
                 'TB-Content-SHA256' => trim($hashBody),
                 'Date'              => trim($date),
                 'Authorization'     => 'TB1-HMAC-SHA256 ' . $this->partnerId . ':' . $signature,
