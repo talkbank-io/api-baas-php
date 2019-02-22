@@ -42,6 +42,58 @@ class Client
     }
 
     /**
+     * Get account balance
+     *
+     * GET /api/v1/balance
+     *
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getBalance() : array
+    {
+        return $this->exec('GET', 'balance');
+    }
+
+    /**
+     * Get account history
+     *
+     * GET /api/v1/transactions
+     *
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getTransactions() : array
+    {
+        return $this->exec('GET', 'transactions');
+    }
+
+    /**
+     * Add new delivery
+     *
+     * @param string $clientId
+     * @param array $params
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function addDelivery(string $clientId, array $params)
+    {
+        return $this->exec('POST', sprintf('clients/%s/card-deliveries', $clientId), [], $params);
+    }
+
+    /**
+     * Get info about delivery
+     *
+     * @param string $clientId
+     * @param string $deliveryId
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getDelivery(string $clientId, string $deliveryId)
+    {
+        return $this->exec('GET', sprintf('clients/%s/card-deliveries/%s', $clientId, $deliveryId));
+    }
+
+    /**
      * Get callbacks
      *
      * GET /api/v1/event-subscriptions
