@@ -68,6 +68,33 @@ class Client
     }
 
     /**
+     * Get card's transactions for the partner
+     *
+     * @param string $fromDate
+     * @param string $toDate
+     * @param int $page
+     * @param int $limit
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getCardsTransactions(
+        string $fromDate,
+        string $toDate,
+        int $page = 1,
+        int $limit = 1000) {
+        return $this->exec(
+            'GET',
+            sprintf('cards-transactions'),
+            [
+                'fromDate'  => date('c', strtotime($fromDate)),
+                'toDate'    => date('c', strtotime($toDate)),
+                'page'      => $page,
+                'limit'     => $limit,
+            ]
+        );
+    }
+
+    /**
      * Add new delivery
      *
      * @param string $clientId
@@ -187,7 +214,7 @@ class Client
         $response = $this->guzzle->request($method, $path, [
             'query'     => $query,
             'body'      => $body,
-        //  'debug'     => true,
+            //  'debug'     => true,
             'headers'   => [
                 'Content-Type'      => 'application/json',
                 'TB-Content-SHA256' => trim($hashBody),
