@@ -94,6 +94,37 @@ class Client
     }
 
     /**
+     * Get card history
+     *
+     * @param string $clientId
+     * @param string $barcode
+     * @param string $fromDate
+     * @param string $toDate
+     * @param int $page
+     * @param int $limit
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getCardTransactions(
+        string $clientId,
+        string $barcode,
+        string $fromDate,
+        string $toDate,
+        int $page = 1,
+        int $limit = 1000) {
+        return $this->exec(
+            'GET',
+            sprintf('clients/%s/cards/%s/transactions', $clientId, $barcode),
+            [
+                'fromDate'  => date('c', strtotime($fromDate)),
+                'toDate'    => date('c', strtotime($toDate)),
+                'page'      => $page,
+                'limit'     => $limit,
+            ]
+        );
+    }
+
+    /**
      * Get callbacks
      *
      * GET /api/v1/event-subscriptions
