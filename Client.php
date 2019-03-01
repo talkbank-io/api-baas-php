@@ -165,6 +165,34 @@ class Client
     }
 
     /**
+     * Refill card from account
+     *
+     * @param string $clientId
+     * @param string $barcode
+     * @param float $amount
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function refill(string $clientId, string $barcode, float $amount)
+    {
+        return $this->exec('POST', sprintf('clients/%s/cards/%s/refill', $clientId, $barcode), [], ['amount' => $amount]);
+    }
+
+    /**
+     * Withdraw money from the card
+     *
+     * @param string $clientId
+     * @param string $barcode
+     * @param float $amount
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function withdrawal(string $clientId, string $barcode, float $amount)
+    {
+        return $this->exec('POST', sprintf('clients/%s/cards/%s/withdrawal', $clientId, $barcode), [], ['amount' => $amount]);
+    }
+
+    /**
      * @param string $method
      * @param string $path
      * @param array $query
