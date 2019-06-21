@@ -170,12 +170,18 @@ class Client
      * @param string $clientId
      * @param string $barcode
      * @param float $amount
+     * @param string $orderId optional id
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function refill(string $clientId, string $barcode, float $amount)
+    public function refill(string $clientId, string $barcode, float $amount, string $orderId = null)
     {
-        return $this->exec('POST', sprintf('clients/%s/cards/%s/refill', $clientId, $barcode), [], ['amount' => $amount]);
+        if ($orderId) {
+            $params = ['amount' => $amount, 'order_id' => $orderId,];
+        } else {
+            $params = ['amount' => $amount,];
+        }
+        return $this->exec('POST', sprintf('clients/%s/cards/%s/refill', $clientId, $barcode), [], $params);
     }
 
     /**
@@ -184,12 +190,18 @@ class Client
      * @param string $clientId
      * @param string $barcode
      * @param float $amount
+     * @param string $orderId optional id
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function withdrawal(string $clientId, string $barcode, float $amount)
+    public function withdrawal(string $clientId, string $barcode, float $amount, string $orderId = null)
     {
-        return $this->exec('POST', sprintf('clients/%s/cards/%s/withdrawal', $clientId, $barcode), [], ['amount' => $amount]);
+        if ($orderId) {
+            $params = ['amount' => $amount, 'order_id' => $orderId,];
+        } else {
+            $params = ['amount' => $amount,];
+        }
+        return $this->exec('POST', sprintf('clients/%s/cards/%s/withdrawal', $clientId, $barcode), [], $params);
     }
 
     /**
