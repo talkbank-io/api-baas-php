@@ -205,6 +205,43 @@ class Client
     }
 
     /**
+     * Create token for clientCharge
+     * 
+     * @param string $clientId
+     * @param string $redirectUrl
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function chargeToken(string $clientId, string $redirectUrl)
+    {
+        $params = ['redirect_url' => $redirectUrl,];
+        return $this->exec('POST', sprintf('charge/%s/token', $clientId), [], $params);
+    }
+
+    /**
+     * Charge metod for Client (w/o signature!)
+     * 
+     * @param string $clientId
+     * @param string $redirectUrl
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function clientCharge(string $token, int $amount, array $cardInfo)
+    {
+        $params = [
+            'token' => $token,
+            'amount' => $amount,
+            'card_info' => $cardInfo,
+        ];
+
+        $response = $this->guzzle->request('POST', '/client/v1/charge', [
+            'json'      => $params,
+        ]);
+
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
      * @param string $method
      * @param string $path
      * @param array $query
