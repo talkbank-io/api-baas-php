@@ -165,6 +165,18 @@ class Client
     }
 
     /**
+     * GET /api/v1/charge/unregistered/card/{order_id}
+     *
+     * @param string $orderId
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getStatusChargeUnregisteredCard(string $orderId)
+    {
+        return $this->exec('GET', sprintf('charge/unregistered/card/%s', $orderId));
+    }
+
+    /**
      * Refill card from account
      *
      * @param string $clientId
