@@ -1,6 +1,53 @@
-composer.phar
+/.env.local
+/.env.*.local
+!/.env.example
+!/.env.production
+!/.env.staging
+/.idea
+/.web-server-pid
+/config/parameters.yml
+/bin/phpunit
+/bin/phpunit.bat
+/bin/security-checker
+/bin/security-checker.bat
+/bin/sentry
+/bin/sentry.bat
+/bin/simple-phpunit
+/bin/simple-phpunit.bat
+/bin/symfony_requirements
+/build/
+/http2amqp.log
+/phpunit.xml
+/var/*
+!/var/cache
+/var/cache/*
+!var/cache/.gitkeep
+!/var/logs
+/var/logs/*
+!var/logs/.gitkeep
+!/var/sessions
+/var/sessions/*
+!var/sessions/.gitkeep
+/var/SymfonyRequirements.php
 /vendor/
+/web/bundles/
+/web/config.php
 
-# Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
-# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
-# composer.lock
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
