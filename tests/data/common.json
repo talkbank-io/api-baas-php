@@ -1,0 +1,1694 @@
+[
+  [
+    {
+      "method": "cardList",
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": []
+          }
+        }
+      },
+      "arguments": [
+        "1"
+      ],
+      "result": {
+        "expected": []
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardList",
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": [
+              2000000000001,
+              2000000000002,
+              2000000000003
+            ]
+          }
+        }
+      },
+      "arguments": [
+        "2"
+      ],
+      "result": {
+        "expected": [
+          2000000000001,
+          2000000000002,
+          2000000000003
+        ]
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardDetails",
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "card_number": "4738 11** **** 5411",
+              "currency": "RUB",
+              "bank_recipient": "ТКБ БАНК ПАО",
+              "legal_address": "109147  г. Москва  ул. Воровся  д.27/35  к/с: № 3010888 в ГУ Бана России по ЦФО",
+              "bik": 9611914,
+              "inn": 77123456789,
+              "recipient": "Иванов Иван Иванович",
+              "checking_account": "11111111111111111111"
+            }
+          }
+        }
+      },
+      "arguments": [
+        "1",
+        "4738110000005411"
+      ],
+      "result": {
+        "expected": {
+          "card_number": "4738 11** **** 5411",
+          "currency": "RUB",
+          "bank_recipient": "ТКБ БАНК ПАО",
+          "legal_address": "109147  г. Москва  ул. Воровся  д.27/35  к/с: № 3010888 в ГУ Бана России по ЦФО",
+          "bik": 9611914,
+          "inn": 77123456789,
+          "recipient": "Иванов Иван Иванович",
+          "checking_account": "11111111111111111111"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardOrderStatus",
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "order_id": 2,
+              "is_completed": true,
+              "status": "completed",
+              "amount": "1000.00",
+              "barcode": "2000005630101"
+            }
+          }
+        }
+      },
+      "arguments": [
+        "1",
+        "2000005630101",
+        "123"
+      ],
+      "result": {
+        "expected": {
+          "order_id": 2,
+          "is_completed": true,
+          "status": "completed",
+          "amount": "1000.00",
+          "barcode": "2000005630101"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardBalance",
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "barcode": 2000005381287,
+              "balance": 30,
+              "currency": "RUB"
+            }
+          }
+        }
+      },
+      "arguments": [
+        "1",
+        "2000005381287"
+      ],
+      "result": {
+        "expected": {
+          "barcode": 2000005381287,
+          "balance": 30,
+          "currency": "RUB"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardLockStatus",
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "barcode": "2000000000001",
+              "is_locked": 0
+            }
+          }
+        }
+      },
+      "arguments": [
+        "1",
+        "2000000000001"
+      ],
+      "result": {
+        "expected": {
+          "barcode": "2000000000001",
+          "is_locked": 0
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardLock",
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "barcode": 2000000000001
+            }
+          }
+        }
+      },
+      "arguments": [
+        "1",
+        "2000000000001",
+        "Card is stolen"
+      ],
+      "result": {
+        "expected": {
+          "barcode": 2000000000001
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardLock",
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "description": "It is not possible to block the card.",
+              "errors": [],
+              "date": "2020-03-05T16:12:30+02:00"
+            }
+          }
+        }
+      },
+      "arguments": [
+        "1",
+        "2000000000002"
+      ],
+      "result": {
+        "expected": {
+          "description": "It is not possible to block the card.",
+          "errors": [],
+          "date": "2020-03-05T16:12:30+02:00"
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardUnlock",
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "DELETE"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "barcode": 2000000000001
+            }
+          }
+        }
+      },
+      "arguments": [
+        "1",
+        "2000000000001"
+      ],
+      "result": {
+        "expected": {
+          "barcode": 2000000000001
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardActivateVirtual",
+      "arguments": [
+        "1"
+      ],
+      "result": {
+        "expected": {
+          "barcode": 2000000000002
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "barcode": 2000000000002
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardActivate",
+      "arguments": [
+        "1",
+        "2000000000002",
+        "KYC3"
+      ],
+      "result": {
+        "expected": {
+          "client_id": "1",
+          "barcode": "2000000000002",
+          "number": "473869003599****",
+          "expiration": "02/24"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "client_id": "1",
+              "barcode": "2000000000002",
+              "number": "473869003599****",
+              "expiration": "02/24"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardActivation",
+      "arguments": [
+        "1",
+        "2000000000002"
+      ],
+      "result": {
+        "expected": {
+          "data": {
+            "barcode": "2000000000002",
+            "status": "pending"
+          }
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "data": {
+                "barcode": "2000000000002",
+                "status": "pending"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardCvv",
+      "arguments": [
+        "1",
+        "2000000000002"
+      ],
+      "result": {
+        "expected": {
+          "barcode": "2000000000002",
+          "phone": "945 *** *** 80"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "barcode": "2000000000002",
+              "phone": "945 *** *** 80"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardCardholderData",
+      "arguments": [
+        "1",
+        "2000000000001"
+      ],
+      "result": {
+        "expected": {
+          "pan": "2000000000001",
+          "embossing_name": "IVAN IVANOV",
+          "expiration": "02/21",
+          "mdes_tav": ""
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "pan": "2000000000001",
+              "embossing_name": "IVAN IVANOV",
+              "expiration": "02/21",
+              "mdes_tav": ""
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardLimits",
+      "arguments": [
+        "1",
+        "2000000000001"
+      ],
+      "result": {
+        "expected": {
+          "cash_day": {
+            "max": 20000000,
+            "used": 1000,
+            "rest": 19999000,
+            "desc": "Card Aggregate Limit"
+          },
+          "pos_day": {
+            "max": 20000000,
+            "used": 1000,
+            "rest": 19999000,
+            "desc": "Card Aggregate Limit 1"
+          }
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "cash_day": {
+                "max": 20000000,
+                "used": 1000,
+                "rest": 19999000,
+                "desc": "Card Aggregate Limit"
+              },
+              "pos_day": {
+                "max": 20000000,
+                "used": 1000,
+                "rest": 19999000,
+                "desc": "Card Aggregate Limit 1"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "hold",
+      "arguments": [
+        100,
+        "adfaduskdc123",
+        null,
+        "client_wof_32425_8e4Q0WyK",
+        "https://example.com"
+      ],
+      "result": {
+        "expected": {
+          "hold_link": "https://baas.talkbank.io/charge/3",
+          "order_id": 3,
+          "order_slug": "client_wof_32425_8e4Q0WyK"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "hold_link": "https://baas.talkbank.io/charge/3",
+              "order_id": 3,
+              "order_slug": "client_wof_32425_8e4Q0WyK"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "holdWithForm",
+      "arguments": [
+        "1",
+        "https://example.com",
+        100,
+        "client_wof_32425_8e4Q0WyK",
+        "4353f3u4u43r34"
+      ],
+      "result": {
+        "expected": {
+          "hold_link": "https://baas.talkbank.io/charge/3",
+          "order_id": 3,
+          "order_slug": "client_wof_32425_8e4Q0WyK"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "hold_link": "https://baas.talkbank.io/charge/3",
+              "order_id": 3,
+              "order_slug": "client_wof_32425_8e4Q0WyK"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "holdConfirm",
+      "arguments": [
+        "client_wof_32425_8e4Q0WyK",
+        100
+      ],
+      "result": {
+        "expected": {
+          "order_slug": "client_wof_32425_8e4Q0WyK",
+          "amount": 100
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "order_slug": "client_wof_32425_8e4Q0WyK",
+              "amount": 100
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "holdReverse",
+      "arguments": [
+        "client_wof_32425_8e4Q0WyK",
+        100
+      ],
+      "result": {
+        "expected": {
+          "order_slug": "client_wof_32425_8e4Q0WyK",
+          "amount": 100
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "order_slug": "client_wof_32425_8e4Q0WyK",
+              "amount": 100
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "accountCardsTransactions",
+      "arguments": [
+        "-1 month",
+        "now",
+        1,
+        1000
+      ],
+      "result": {
+        "expected": [
+          {
+            "id": 44443137540,
+            "datetime": "2018-01-23 14:03:55",
+            "cardNumber": "4738********3296",
+            "amount": 1500,
+            "cardAmount": 1500,
+            "type": "debit",
+            "currency": "RUB",
+            "category": {
+              "name": "Перевод с карты",
+              "parent": "Финансы"
+            },
+            "comment": "TKB CardToCard, MOSCOW",
+            "mcc": "6012",
+            "barcode": "200000xxxxx"
+          }
+        ]
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": [
+              {
+                "id": 44443137540,
+                "datetime": "2018-01-23 14:03:55",
+                "cardNumber": "4738********3296",
+                "amount": 1500,
+                "cardAmount": 1500,
+                "type": "debit",
+                "currency": "RUB",
+                "category": {
+                  "name": "Перевод с карты",
+                  "parent": "Финансы"
+                },
+                "comment": "TKB CardToCard, MOSCOW",
+                "mcc": "6012",
+                "barcode": "200000xxxxx"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardDeliveryStore",
+      "arguments": [
+        "1",
+        {
+          "type": "post",
+          "phone": "+79260000000",
+          "city": "Москва",
+          "address": "Кремлевская пл., д. 1",
+          "payment_type": "account",
+          "kyc": "KYC2"
+        }
+      ],
+      "result": {
+        "expected": {
+          "error": 0,
+          "error_description": "Success",
+          "data": {
+            "client_id": "47",
+            "delivery_id": 2323,
+            "paymeny_link": "https://pay.talkbank.io/payment/yavz1s",
+            "delivery_status_code": 1,
+            "delivery_status_description": "waiting for payment"
+          }
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "error": 0,
+              "error_description": "Success",
+              "data": {
+                "client_id": "47",
+                "delivery_id": 2323,
+                "paymeny_link": "https://pay.talkbank.io/payment/yavz1s",
+                "delivery_status_code": 1,
+                "delivery_status_description": "waiting for payment"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardDeliveryShow",
+      "arguments": [
+        "1",
+        "1212"
+      ],
+      "result": {
+        "expected": {
+          "client_id": "1",
+          "delivery_id": 1212,
+          "delivery_status_code": 1,
+          "delivery_status_description": "new"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "client_id": "1",
+              "delivery_id": 1212,
+              "delivery_status_code": 1,
+              "delivery_status_description": "new"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "eventSubscriptionStore",
+      "arguments": [
+        "https://example.com/webhook",
+        [
+          "payment",
+          "activation"
+        ]
+      ],
+      "result": {
+        "expected": {
+          "enabled": [
+            {
+              "id": 1,
+              "url": "https://example.com/webhook",
+              "event": "payment"
+            },
+            {
+              "id": 2,
+              "url": "https://example.com/webhook",
+              "event": "activation"
+            }
+          ],
+          "available": [
+            "delivery",
+            "identification",
+            "order",
+            "selfemployments"
+          ]
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "enabled": [
+                {
+                  "id": 1,
+                  "url": "https://example.com/webhook",
+                  "event": "payment"
+                },
+                {
+                  "id": 2,
+                  "url": "https://example.com/webhook",
+                  "event": "activation"
+                }
+              ],
+              "available": [
+                "delivery",
+                "identification",
+                "order",
+                "selfemployments"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "eventSubscriptionList",
+      "arguments": [],
+      "result": {
+        "expected": {
+          "enabled": [
+            {
+              "id": 1,
+              "url": "https://example.com/webhook",
+              "event": "payment"
+            },
+            {
+              "id": 2,
+              "url": "https://example.com/webhook",
+              "event": "activation"
+            }
+          ],
+          "available": [
+            "delivery",
+            "identification",
+            "order",
+            "selfemployments"
+          ]
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "enabled": [
+                {
+                  "id": 1,
+                  "url": "https://example.com/webhook",
+                  "event": "payment"
+                },
+                {
+                  "id": 2,
+                  "url": "https://example.com/webhook",
+                  "event": "activation"
+                }
+              ],
+              "available": [
+                "delivery",
+                "identification",
+                "order",
+                "selfemployments"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "eventSubscriptionRemove",
+      "arguments": [
+        "1"
+      ],
+      "result": {
+        "expected": {
+          "enabled": [
+            {
+              "id": 2,
+              "url": "https://example.com/webhook",
+              "event": "activation"
+            }
+          ],
+          "available": [
+            "payment",
+            "delivery",
+            "identification",
+            "order",
+            "selfemployments"
+          ]
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "DELETE"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "enabled": [
+                {
+                  "id": 2,
+                  "url": "https://example.com/webhook",
+                  "event": "activation"
+                }
+              ],
+              "available": [
+                "payment",
+                "delivery",
+                "identification",
+                "order",
+                "selfemployments"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "paymentFromUnregisteredCard",
+      "arguments": [
+        "1",
+        100,
+        {
+          "number": "4444111133335555",
+          "month": "01",
+          "year": "2021",
+          "cvv": "123",
+          "holder": "TALKBANK BLACK"
+        },
+        "https://example.com",
+        "example_unique_identifier"
+      ],
+      "result": {
+        "expected": {
+          "charge_link": "https://baas.talkbank.io/charge/3",
+          "order_id": 3,
+          "order_slug": "example_unique_identifier"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "charge_link": "https://baas.talkbank.io/charge/3",
+              "order_id": 3,
+              "order_slug": "example_unique_identifier"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "paymentToUnregisteredCardToken",
+      "arguments": [
+        "3",
+        100,
+        "order_slug_1111111111"
+      ],
+      "result": {
+        "expected": {
+          "error": 0,
+          "error_description": "Success",
+          "data": {
+            "token": "4dd1cc4a-ffed-4c69-b3e9-eda3a3673bff",
+            "token_status": "31aecc4a-ffed-4c69-b3e9-eda566673bff",
+            "order_slug": "order_slug_1111111111"
+          }
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "error": 0,
+              "error_description": "Success",
+              "data": {
+                "token": "4dd1cc4a-ffed-4c69-b3e9-eda3a3673bff",
+                "token_status": "31aecc4a-ffed-4c69-b3e9-eda566673bff",
+                "order_slug": "order_slug_1111111111"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "paymentFromUnregisteredCardToken",
+      "arguments": [
+        "1",
+        "https://example.com",
+        100
+      ],
+      "result": {
+        "expected": {
+          "token": "4dd1cc4a-ffed-4c69-b3e9-eda3a3673bff",
+          "token_status": "31aecc4a-ffed-4c69-b3e9-eda566673bff",
+          "order_id": 111
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "token": "4dd1cc4a-ffed-4c69-b3e9-eda3a3673bff",
+              "token_status": "31aecc4a-ffed-4c69-b3e9-eda566673bff",
+              "order_id": 111
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "paymentFromUnregisteredCardWithForm",
+      "arguments": [
+        "1",
+        100,
+        "order_slug_1111111111",
+        "https://example.com"
+      ],
+      "result": {
+        "expected": {
+          "charge_link": "https://baas.talkbank.io/charge/3",
+          "order_id": 3,
+          "order_slug": "client_wof_32425_8e4Q0WyK"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "charge_link": "https://baas.talkbank.io/charge/3",
+              "order_id": 3,
+              "order_slug": "client_wof_32425_8e4Q0WyK"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "paymentFromRegisteredCard",
+      "arguments": [
+        "1",
+        100,
+        "7daf4b05-2860-4e57-b1db-bccd40840bc5",
+        "order_slug_1111111111"
+      ],
+      "result": {
+        "expected": {
+          "order_slug": "client_wof_32425_8e4Q0WyK"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "order_slug": "client_wof_32425_8e4Q0WyK"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "paymentAuthorization",
+      "arguments": [
+        "1",
+        {
+          "number": "4444111133335555",
+          "month": "01",
+          "year": "2021",
+          "cvv": "123",
+          "holder": "TALKBANK BLACK"
+        },
+        "https://example.com"
+      ],
+      "result": {
+        "expected": {
+          "charge_link": "https://baas.talkbank.io/charge/3",
+          "order_id": 3
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "charge_link": "https://baas.talkbank.io/charge/3",
+              "order_id": 3
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "paymentAuthorizationToken",
+      "arguments": [
+        "1",
+        "https://example.com"
+      ],
+      "result": {
+        "expected": {
+          "token": "4dd1cc4a-ffed-4c69-b3e9-eda3a3673bff",
+          "token_status": "31aecc4a-ffed-4c69-b3e9-eda566673bff",
+          "order_id": 111,
+          "order_slug": "client_wof_32425_8e4Q0WyK"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "token": "4dd1cc4a-ffed-4c69-b3e9-eda3a3673bff",
+              "token_status": "31aecc4a-ffed-4c69-b3e9-eda566673bff",
+              "order_id": 111,
+              "order_slug": "client_wof_32425_8e4Q0WyK"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "paymentAuthorizationWithForm",
+      "arguments": [
+        "1",
+        "https://example.com",
+        "client_wof_32425_8e4Q0WyK"
+      ],
+      "result": {
+        "expected": {
+          "charge_link": "https://baas.talkbank.io/charge/3",
+          "order_id": 3,
+          "order_slug": "example_unique_identifier"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "charge_link": "https://baas.talkbank.io/charge/3",
+              "order_id": 3,
+              "order_slug": "example_unique_identifier"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "paymentToRegisteredCard",
+      "arguments": [
+        "1",
+        "4dd1cc4a-ffed-4c69-b3e9-eda3a3673bff",
+        100,
+        "client_wof_32425_8e4Q0WyK"
+      ],
+      "result": {
+        "expected": {
+          "order_slug": "client_wof_32425_8e4Q0WyK"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "order_slug": "client_wof_32425_8e4Q0WyK"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "setCardPin",
+      "arguments": [
+        "1",
+        "2000000000001",
+        "1234"
+      ],
+      "result": {
+        "expected": {
+          "barcode": "2000000000001"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "barcode": "2000000000001"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "paymentToUnregisteredCard",
+      "arguments": [
+        "2000000000001",
+        100,
+        "client_wof_32425_8e4Q0WyK"
+      ],
+      "result": {
+        "expected": {
+          "order_slug": "example_order_id",
+          "order_id": 1
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "order_slug": "example_order_id",
+              "order_id": 1
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "paymentToUnregisteredCardWithForm",
+      "arguments": [
+        "1",
+        100,
+        "client_wof_32425_8e4Q0WyK",
+        "https://example.com"
+      ],
+      "result": {
+        "expected": {
+          "order_id": 3,
+          "order_slug": "client_wof_32425_8e4Q0WyK",
+          "refill_link": "https://baas_test.talkbank.io/direct/payment/XXXXXXX"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "order_id": 3,
+              "order_slug": "client_wof_32425_8e4Q0WyK",
+              "refill_link": "https://baas_test.talkbank.io/direct/payment/XXXXXXX"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "paymentStatus",
+      "arguments": [
+        "client_wof_32425_8e4Q0WyK"
+      ],
+      "result": {
+        "expected": {
+          "order_id": 1,
+          "order_slug": "unique_order_identifier",
+          "is_completed": false,
+          "status": "completed",
+          "type": "refill",
+          "amount": 3000,
+          "currency": "RUB",
+          "card_number": "4314********8781",
+          "state_code": 10,
+          "state_description": "Недостаточно средств"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "order_id": 1,
+              "order_slug": "unique_order_identifier",
+              "is_completed": false,
+              "status": "completed",
+              "type": "refill",
+              "amount": 3000,
+              "currency": "RUB",
+              "card_number": "4314********8781",
+              "state_code": 10,
+              "state_description": "Недостаточно средств"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "cardPdf",
+      "arguments": [
+        "1",
+        "2000005630101"
+      ],
+      "result": {
+        "expected": {}
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {}
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "clientStore",
+      "arguments": [
+        "itsclient1",
+        {
+          "first_name": "Иван",
+          "last_name": "Иванов",
+          "middle_name": "Иванович",
+          "inn": "6449013711",
+          "gender": "0",
+          "birth_day": "1980-01-01",
+          "secret_word": "secret1",
+          "phone": "+79032708813",
+          "document": {
+            "serial": "1234",
+            "number": "123456",
+            "date": "2016-01-01"
+          }
+        }
+      ],
+      "result": {
+        "expected": {
+          "client_id": "itsclient1"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "client_id": "itsclient1"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "clientEdit",
+      "arguments": [
+        "itsclient1",
+        {
+          "phone": "+79032708812"
+        }
+      ],
+      "result": {
+        "expected": {
+          "client_id": "itsclient1"
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "PUT"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "client_id": "itsclient1"
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "clientShow",
+      "arguments": [
+        "3"
+      ],
+      "result": {
+        "expected": {
+          "error": 0,
+          "error_description": "Success",
+          "data": {
+            "client_id": "itsclient1",
+            "is_identified": false,
+            "status": "Identification in process"
+          }
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "error": 0,
+              "error_description": "Success",
+              "data": {
+                "client_id": "itsclient1",
+                "is_identified": false,
+                "status": "Identification in process"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "selfemploymentsRegistrationStatus",
+      "arguments": [
+        "3"
+      ],
+      "result": {
+        "expected": {
+          "error": 0,
+          "error_description": "Success",
+          "data": {
+            "client_id": "3",
+            "status": "registered",
+            "description": "Success"
+          }
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "error": 0,
+              "error_description": "Success",
+              "data": {
+                "client_id": "3",
+                "status": "registered",
+                "description": "Success"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "unsignedPaymentToUnregisteredCard",
+      "arguments": [
+        "4dd1cc4a-ffed-4c69-b3e9-eda3a3673bff",
+        "4444111133335555"
+      ],
+      "result": {
+        "expected": {
+          "error": 0,
+          "error_description": "Success",
+          "data": {
+            "token": "4dd1cc4a-ffed-4c69-b3e9-eda3a3673bff"
+          }
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "error": 0,
+              "error_description": "Success",
+              "data": {
+                "token": "4dd1cc4a-ffed-4c69-b3e9-eda3a3673bff"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "unsignedPaymentAuthorization",
+      "arguments": [
+        "4dd1cc4a-ffed-4c69-b3e9-eda3a3673bff",
+        {
+          "number": "4444555566662222",
+          "month": "01",
+          "year": "2021",
+          "cvv": "123",
+          "holder": "TALKBANK BLACK"
+        }
+      ],
+      "result": {
+        "expected": {
+          "error": 0,
+          "error_description": "Success",
+          "data": {
+            "charge_link": "http://example.com"
+          }
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "error": 0,
+              "error_description": "Success",
+              "data": {
+                "charge_link": "http://example.com"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "unsignedHold",
+      "arguments": [
+        "4dd1cc4a-ffed-4c69-b3e9-eda3a3673bff",
+        {
+          "number": "4444555566662222",
+          "month": "01",
+          "year": "2021",
+          "cvv": "123",
+          "holder": "TALKBANK BLACK"
+        }
+      ],
+      "result": {
+        "expected": {
+          "error": 0,
+          "error_description": "Success",
+          "data": {
+            "charge_link": "http://example.com"
+          }
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "POST"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "error": 0,
+              "error_description": "Success",
+              "data": {
+                "charge_link": "http://example.com"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    {
+      "method": "unsignedPaymentStatusByHash",
+      "arguments": [
+        "4dd1cc4a-ffed-4c69-b3e9-eda3a3673bff"
+      ],
+      "result": {
+        "expected": {
+          "error": 0,
+          "error_description": "Success",
+          "data": {
+            "status": "new",
+            "order_id": 123,
+            "order_slug": "1231231321",
+            "is_completed": false,
+            "amount": 100,
+            "state_code": 0,
+            "state_description": "Нет ошибки"
+          }
+        }
+      },
+      "mock": {
+        "httpClient": {
+          "request": {
+            "type": "GET"
+          },
+          "response": {
+            "code": 200,
+            "data": {
+              "error": 0,
+              "error_description": "Success",
+              "data": {
+                "status": "new",
+                "order_id": 123,
+                "order_slug": "1231231321",
+                "is_completed": false,
+                "amount": 100,
+                "state_code": 0,
+                "state_description": "Нет ошибки"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+]
