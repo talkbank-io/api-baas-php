@@ -9,9 +9,10 @@ Bank as a service by TalkBank
 ### Card methods
  * GET /clients/{client_id}/cards/{barcode}/transactions
  * GET /clients/{client_id}/cards
- * GET /clients/{client_id}/card
+ * GET /clients/{client_id}/cards/{barcode}
  * GET /clients/{client_id}/cards/{barcode}/{order_id}
  * GET /clients/{client_id}/cards/{barcode}/balance
+ * GET /clients/{client_id}/cards/{barcode}/lock
  * POST /clients/{client_id}/cards/{barcode}/lock
  * DELETE /clients/{client_id}/cards/{barcode}/lock
  * POST /clients/{client_id}/virtual-cards
@@ -19,24 +20,22 @@ Bank as a service by TalkBank
  * GET /clients/{client_id}/cards/{barcode}/activation
  * GET /clients/{client_id}/cards/{barcode}/security-code
  * GET /clients/{client_id}/cards/{barcode}/cardholder/data
+ * GET /clients/{client_id}/cards/{barcode}/limits
  * POST /clients/{client_id}/cards/{barcode}/refill
  * POST /clients/{client_id}/cards/{barcode}/withdrawal
  * POST /clients/{client_id}/cards/{barcode}/set/pin
- * GET /clients/{client_id}/pdf
+ * GET /clients/{client_id}/cards/{barcode}/pdf
 ### Event Subscription Methods
  * GET /event-subscriptions
  * POST /event-subscriptions
  * DELETE /event-subscriptions
-### default
- * GET /clients/{client_id}/cards/{barcode}/cardholder/data
- * GET /clients/{client_id}/cards/{barcode}/limits
 ### Delivery methods
  *  POST /clients/{client_id}/card-deliveries
- *  GET /clients/{client_id}/card-deliveries
+ *  GET /clients​/{client_id}​/card-deliveries​/{delivery_id}
 ### Client Methods
  * POST /clients
- * GET /clients/{client_id}
  * PUT /clients/{client_id}
+ * GET /clients/{client_id}
 ### Hold
  * POST /hold
  * POST /hold/{client_id}/with/form
@@ -65,3 +64,5 @@ Bank as a service by TalkBank
  * POST /client/v1/hold
  * GET /client/v1/status/{hash}
  
+## Unit tests
+Run tests: `php bin/phpunit tests/ApiClientTest.php`

@@ -290,22 +290,13 @@ class Client
         ?string $cardRefId = null,
         ?string $redirectUrl = null
     ): array {
-        $params = [];
-        if ($amount !== null) {
-            $params['amount'] = $amount;
-        }
-        if ($orderSlug !== null) {
-            $params['order_slug'] = $orderSlug;
-        }
-        if ($cardInfo !== null) {
-            $params['card_info'] = $cardInfo;
-        }
-        if ($cardRefId !== null) {
-            $params['card_ref_id'] = $cardRefId;
-        }
-        if ($redirectUrl !== null) {
-            $params['redirect_url'] = $redirectUrl;
-        }
+        $params = $this->filterParams([
+            'amount' => $amount,
+            'order_slug' => $orderSlug,
+            'card_info' => $cardInfo,
+            'card_ref_id' => $cardRefId,
+            'redirect_url' => $redirectUrl,
+        ]);
 
         return $this->exec('POST', 'hold', [], $params);
     }
@@ -345,7 +336,7 @@ class Client
      * POST /api/v1/hold/confirm/{order_slug}
      *
      * @param string $orderSlug
-     * @param int $amount
+     * @param int|null $amount
      * @return array
      */
     public function holdConfirm(string $orderSlug, ?int $amount = null): array
@@ -600,7 +591,7 @@ class Client
     /**
      * Withdraw money from the card
      *
-     * POST /api/v1/clients/{clientId}/cards/{barcode}/withdrawal
+     * POST /api/v1/clients/{client_id}/cards/{barcode}/withdrawal
      *
      * @param string $clientId
      * @param string $barcode
@@ -936,7 +927,7 @@ class Client
     /**
      * Get direct payment status
      *
-     * POST /api/v1/payment/{order_slug}
+     * GET /api/v1/payment/{order_slug}
      *
      * @param string $orderSlug
      * @return array
@@ -1014,7 +1005,7 @@ class Client
     }
 
     /**
-     * Get client's status
+     * Update the client
      *
      * PUT /api/v1/clients/{client_id}
      *
