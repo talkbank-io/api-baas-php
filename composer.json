@@ -2,7 +2,7 @@
     "name": "talkbank-io/api-baas-php",
     "description": "BaaS API by TalkBank",
     "license": "MIT",
-    "version": "1.5.3",
+    "version": "1.5.4",
     "require": {
         "php": "^7.1",
         "ext-json": "*",

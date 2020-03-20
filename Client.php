@@ -949,15 +949,15 @@ class Client
     /**
      * Get identification pdf for Client/Card (a few banks only)
      *
-     * GET /api/v1/clients/{client_id}/cards/{barcode}/pdf
+     * GET /api/v1/clients/{client_id}/pdf
      *
      * @param string $clientId
      * @param string $barcode
      * @return mixed
      */
-    public function cardPdf(string $clientId, string $barcode)
+    public function clientPdf(string $clientId)
     {
-        return $this->exec('GET', sprintf('clients/%s/cards/%s/pdf', $clientId, $barcode));
+        return $this->exec('GET', sprintf('clients/%s/pdf', $clientId));
     }
 
     /**
