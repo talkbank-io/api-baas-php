@@ -952,12 +952,24 @@ class Client
      * GET /api/v1/clients/{client_id}/pdf
      *
      * @param string $clientId
-     * @param string $barcode
      * @return mixed
      */
     public function clientPdf(string $clientId)
     {
         return $this->exec('GET', sprintf('clients/%s/pdf', $clientId));
+    }
+
+    /**
+     * Get agreement docx (pdf) for Client/Card (a few banks only)
+     *
+     * GET /api/v1/clients/{client_id}/agreement
+     *
+     * @param string $clientId
+     * @return mixed
+     */
+    public function clientAgreement(string $clientId)
+    {
+        return $this->exec('GET', sprintf('clients/%s/agreement', $clientId));
     }
 
     /**
@@ -1166,7 +1178,7 @@ class Client
         $response = $this->guzzle->request($method, $path, [
             'query' => $query,
             'body' => $body,
-            //  'debug'     => true,
+            'debug'     => true,
             'headers' => [
                 'Content-Type' => 'application/json',
                 'TB-Content-SHA256' => trim($hashBody),
@@ -1175,7 +1187,8 @@ class Client
             ]
         ]);
 
-        return json_decode($response->getBody()->getContents(), true);
+        $content = $response->getBody()->getContents(); // json or string?
+        return $content{0} === '{' ? json_decode($content, true) : $content;
     }
 
     /**
