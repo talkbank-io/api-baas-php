@@ -68,12 +68,14 @@ class Client
      *
      * GET /api/v1/transactions
      *
+     * @param string|null $fromDate
+     * @param string|null $toDate
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function accountTransactions(): array
+    public function accountTransactions(string $fromDate = null, string $toDate = null): array
     {
-        return $this->exec('GET', 'transactions');
+        return $this->exec('GET', 'transactions', ['fromDate' => $fromDate, 'toDate' => $toDate]);
     }
 
     /**
@@ -111,6 +113,13 @@ class Client
         return $this->exec('GET', sprintf('clients/%s/cards/%s', $clientId, $barcode));
     }
 
+
+    public function cardBarcode($cardNumber): array
+    {
+        return $this->exec('POST', 'cards/barcode', [] , ['number' => $cardNumber]);
+    }
+
+
     /**
      * Get direct transaction's status, this is alias for `payment_status`
      *
@@ -137,7 +146,7 @@ class Client
      */
     public function cardBalance(string $clientId, string $barcode): array
     {
-        return $this->exec('GET', sprintf('/clients/%s/cards/%s/balance', $clientId, $barcode));
+        return $this->exec('GET', sprintf('clients/%s/cards/%s/balance', $clientId, $barcode));
     }
 
     /**
@@ -583,7 +592,7 @@ class Client
     {
         $params = $this->filterParams([
             'amount' => $amount,
-            'order_id' => $orderId,
+            'order_slug' => $orderId,
         ]);
 
         return $this->exec('POST', sprintf('clients/%s/cards/%s/refill', $clientId, $barcode), [], $params);
@@ -1175,20 +1184,25 @@ class Client
 
         $signature = hash_hmac('sha256', $string, $this->token);
 
-        $response = $this->guzzle->request($method, $path, [
-            'query' => $query,
-            'body' => $body,
-            'debug'     => true,
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'TB-Content-SHA256' => trim($hashBody),
-                'Date' => trim($date),
-                'Authorization' => 'TB1-HMAC-SHA256 ' . $this->partnerId . ':' . $signature,
-            ]
-        ]);
+        try {
+            $response = $this->guzzle->request($method, $path, [
+                'query' => $query,
+                'body' => $body,
+                'debug'     => true,
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'TB-Content-SHA256' => trim($hashBody),
+                    'Date' => trim($date),
+                    'Authorization' => 'TB1-HMAC-SHA256 ' . $this->partnerId . ':' . $signature,
+                ]
+            ]);
+        } catch (\Exception $exception) {
+            var_dump($exception->getResponse()->getBody()->getContents());
+
+        }
 
         $content = $response->getBody()->getContents(); // json or string?
-        return $content{0} === '{' ? json_decode($content, true) : $content;
+        return in_array($content{0}, ['{', '[']) ? json_decode($content, true) : $content;
     }
 
     /**
