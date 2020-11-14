@@ -574,12 +574,12 @@ class Client
      *
      * @param string $clientId
      * @param string $barcode
-     * @param float $amount
+     * @param int $amount
      * @param string $orderId optional id
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function cardRefill(string $clientId, string $barcode, float $amount, ?string $orderId = null): array
+    public function cardRefill(string $clientId, string $barcode, int $amount, ?string $orderId = null): array
     {
         $params = $this->filterParams([
             'amount' => $amount,
