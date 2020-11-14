@@ -1,6 +1,8 @@
 # api-baas-php
 Bank as a service by TalkBank
 
+`composer require talkbank-io/api-baas-php`
+
 ## Api methods
 ### Account methods
  * GET /balance
