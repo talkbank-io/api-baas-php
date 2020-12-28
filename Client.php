@@ -29,14 +29,21 @@ class Client
     private $partnerId;
 
     /**
+     * @var bool
+     */
+    private $isDebug;
+
+    /**
      * Client constructor.
      *
      * @param string $baseUri
      * @param string $partnerId
      * @param string $token
+     * @param bool $isDebug
      */
-    public function __construct(string $baseUri, string $partnerId, string $token)
+    public function __construct(string $baseUri, string $partnerId, string $token, bool $isDebug = true)
     {
+        $this->isDebug = $isDebug;
         $this->token = $token;
         $this->partnerId = $partnerId;
         $this->guzzle = new GuzzleClient(['base_uri' => $baseUri,]);
@@ -1179,7 +1186,7 @@ class Client
             $response = $this->guzzle->request($method, $path, [
                 'query' => $query,
                 'body' => $body,
-                'debug'     => true,
+                'debug' => $this->isDebug,
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'TB-Content-SHA256' => trim($hashBody),
@@ -1188,8 +1195,12 @@ class Client
                 ]
             ]);
         } catch (\Exception $exception) {
-            var_dump($exception->getResponse()->getBody()->getContents());
-
+            if ($this->isDebug) {
+                var_dump($exception->getResponse()->getBody()->getContents());
+                exit;
+            } else {
+                throw $exception;
+            }
         }
 
         $content = $response->getBody()->getContents(); // json or string?
