@@ -766,13 +766,19 @@ class Client
      * @param string $clientId
      * @param array $cardInfo
      * @param string|null $redirectUrl
+     * @param int|null $amount
      * @return array
      */
-    public function paymentAuthorization(string $clientId, array $cardInfo, ?string $redirectUrl): array
-    {
+    public function paymentAuthorization(
+        string $clientId, 
+        array $cardInfo, 
+        ?string $redirectUrl = null, 
+        ?int $amount = null
+    ): array {
         $params = $this->filterParams([
             'card_info' => $cardInfo,
             'redirect_url' => $redirectUrl,
+            'amount' => $amount,
         ]);
 
         return $this->exec('POST', sprintf('authorize/card/%s', $clientId), [], $params);
@@ -785,12 +791,17 @@ class Client
      *
      * @param string $clientId
      * @param string|null $redirectUrl
+     * @param int|null $amount
      * @return array
      */
-    public function paymentAuthorizationToken(string $clientId, ?string $redirectUrl): array
-    {
+    public function paymentAuthorizationToken(
+        string $clientId, 
+        ?string $redirectUrl = null, 
+        ?int $amount = null
+    ): array {
         $params = $this->filterParams([
             'redirect_url' => $redirectUrl,
+            'amount' => $amount,
         ]);
 
         return $this->exec('POST', sprintf('authorize/card/%s/token', $clientId), [], $params);
@@ -802,16 +813,19 @@ class Client
      * @param string $clientId
      * @param string|null $redirectUrl
      * @param string|null $orderSlug
+     * @param int|null $amount
      * @return array
      */
     public function paymentAuthorizationWithForm(
         string $clientId,
         ?string $redirectUrl = null,
-        ?string $orderSlug = null
+        ?string $orderSlug = null,
+        ?int $amount = null
     ): array {
         $params = $this->filterParams([
             'redirect_url' => $redirectUrl,
             'order_slug' => $orderSlug,
+            'amount' => $amount,
         ]);
 
         return $this->exec('POST', sprintf('authorize/card/%s/with/form', $clientId), [], $params);
