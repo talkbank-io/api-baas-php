@@ -586,11 +586,12 @@ class Client
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function cardRefill(string $clientId, string $barcode, int $amount, ?string $orderId = null): array
+    public function cardRefill(string $clientId, string $barcode, int $amount, ?string $orderId = null, bool $percentsOnUser = false): array
     {
         $params = $this->filterParams([
             'amount' => $amount,
             'order_slug' => $orderId,
+            'percents_on_user' => $percentsOnUser,
         ]);
 
         return $this->exec('POST', sprintf('clients/%s/cards/%s/refill', $clientId, $barcode), [], $params);
@@ -770,9 +771,9 @@ class Client
      * @return array
      */
     public function paymentAuthorization(
-        string $clientId, 
-        array $cardInfo, 
-        ?string $redirectUrl = null, 
+        string $clientId,
+        array $cardInfo,
+        ?string $redirectUrl = null,
         ?int $amount = null
     ): array {
         $params = $this->filterParams([
@@ -795,8 +796,8 @@ class Client
      * @return array
      */
     public function paymentAuthorizationToken(
-        string $clientId, 
-        ?string $redirectUrl = null, 
+        string $clientId,
+        ?string $redirectUrl = null,
         ?int $amount = null
     ): array {
         $params = $this->filterParams([
@@ -844,15 +845,17 @@ class Client
         string $clientId,
         string $cardToken,
         int $amount,
-        ?string $orderSlug
+        ?string $orderSlug,
+        bool $percentsOnUser = false
     ): array {
         $params = $this->filterParams([
             'card_token' => $cardToken,
             'amount' => $amount,
             'order_slug' => $orderSlug,
+            'percents_on_user' => $percentsOnUser,
         ]);
 
-        return $this->exec('POST', sprintf('payment/to/{client_id}/registered/card', $clientId), [], $params);
+        return $this->exec('POST', sprintf('payment/to/%s/registered/card', $clientId), [], $params);
     }
 
     /**
@@ -919,12 +922,13 @@ class Client
      * @param string|null $orderSlug
      * @return array
      */
-    public function paymentToUnregisteredCard(string $cardNumber, ?int $amount, ?string $orderSlug): array
+    public function paymentToUnregisteredCard(string $cardNumber, ?int $amount, ?string $orderSlug, bool $percentsOnUser = false): array
     {
         $params = [
             'card_number' => $cardNumber,
             'amount' => $amount,
             'order_slug' => $orderSlug,
+            'percents_on_user' => $percentsOnUser,
         ];
 
         return $this->exec('POST', 'refill/unregistered/card', [], $params);
@@ -943,12 +947,14 @@ class Client
         string $clientId,
         int $amount,
         ?string $orderSlug = null,
-        ?string $redirectUrl = null
+        ?string $redirectUrl = null,
+        bool $percentsOnUser = false
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
             'order_slug' => $orderSlug,
             'redirect_url' => $redirectUrl,
+            'percents_on_user' => $percentsOnUser,
         ]);
 
         return $this->exec('POST', sprintf('refill/%s/unregistered/card/with/form', $clientId), [], $params);
