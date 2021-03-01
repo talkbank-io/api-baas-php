@@ -1157,6 +1157,25 @@ class Client
     }
 
     /**
+     * Change limit for card
+     *
+     * POST /api/v1/clients/{client_id}/cards/{barcode}/limits
+     *
+     * @param string $clientId
+     * @param string $barcode
+     * @param string $name
+     * @param int $amount
+     * @return array
+     */
+    public function changeCardLimit(string $clientId, string $barcode, string $name, int $amount): array
+    {
+        return $this->exec('POST', sprintf('clients/%s/cards/%s/limits', $clientId, $barcode), [], [
+            'name' => $name,
+            'amount' => $amount,
+        ]);
+    }
+
+    /**
      * @param string $method
      * @param string $path
      * @param array $query
