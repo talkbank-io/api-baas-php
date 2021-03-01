@@ -27,6 +27,7 @@ Bank as a service by TalkBank
  * POST /clients/{client_id}/cards/{barcode}/withdrawal
  * POST /clients/{client_id}/cards/{barcode}/set/pin
  * GET /clients/{client_id}/cards/{barcode}/pdf
+ * POST /clients/{client_id}/cards/{barcode}/limits
 ### Event Subscription Methods
  * GET /event-subscriptions
  * POST /event-subscriptions
