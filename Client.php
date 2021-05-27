@@ -71,26 +71,32 @@ class Client
     }
 
     /**
-     * Get account history
+     * Get operations
      *
-     * GET /api/v1/transactions
-     *
-     * @param string|null $fromDate
-     * @param string|null $toDate
-     * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * GET /api/v1/operations
      */
-    public function accountTransactions(string $fromDate = null, string $toDate = null): array
-    {
-        return $this->exec('GET', 'transactions', ['fromDate' => $fromDate, 'toDate' => $toDate]);
+    public function accountOperations(
+        \DateTimeInterface $fromDate,
+        \DateTimeInterface $toDate,
+        int $page = 1,
+        int $onPage = 50
+    ): array {
+        return $this->exec('GET', 'operations', [
+            'from_date' => $fromDate->format('Y-m-d'),
+            'to_date' => $toDate->format('Y-m-d'),
+            'page' => $page,
+            'on_page' => $onPage,
+        ]);
     }
 
     /**
-     * @deprecated use Client::accountTransactions() instead
+     * Get operation
+     *
+     * GET /api/v1/operations/{type}/{id}
      */
-    public function getTransactions(): array
+    public function accountOperation(string $type, string $id): array
     {
-        return $this->accountTransactions();
+        return $this->exec('GET', sprintf('operations/%s/%s', $type, $id));
     }
 
     /**
