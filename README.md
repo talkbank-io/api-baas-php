@@ -6,7 +6,8 @@ Bank as a service by TalkBank
 ## Api methods
 ### Account methods
  * GET /balance
- * GET /transactions
+ * GET /operations
+ * GET /operations/{type}/{id}
  * GET /cards-transactions
 ### Card methods
  * GET /clients/{client_id}/cards/{barcode}/transactions
