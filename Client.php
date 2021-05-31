@@ -584,20 +584,20 @@ class Client
      * Refill card from account
      *
      * POST /api/v1/clients/{client_id}/cards/{barcode}/refill
-     *
-     * @param string $clientId
-     * @param string $barcode
-     * @param int $amount
-     * @param string $orderId optional id
-     * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function cardRefill(string $clientId, string $barcode, int $amount, ?string $orderId = null, bool $percentsOnUser = false): array
-    {
+    public function cardRefill(
+        string $clientId,
+        string $barcode,
+        int $amount,
+        ?string $orderId = null,
+        bool $percentsOnUser = false,
+        ?string $recieptId = null
+    ): array {
         $params = $this->filterParams([
             'amount' => $amount,
             'order_slug' => $orderId,
             'percents_on_user' => $percentsOnUser,
+            'reciept_id' => $recieptId,
         ]);
 
         return $this->exec('POST', sprintf('clients/%s/cards/%s/refill', $clientId, $barcode), [], $params);
@@ -882,19 +882,9 @@ class Client
     }
 
     /**
+     * Payment to account
      *
      * POST /api/v1/account/transfer
-     *
-     * @param int $amount
-     * @param string $account
-     * @param string $bik
-     * @param string $name
-     * @param string|null $inn
-     * @param string|null $description
-     * @param string|null $orderSlug
-     * @return array
-     *
-     * @todo add unit test
      */
     public function paymentToAccount(
         int $amount,
@@ -903,7 +893,8 @@ class Client
         string $name,
         ?string $inn = null,
         ?string $description = null,
-        ?string $orderSlug = null
+        ?string $orderSlug = null,
+        ?string $recieptId = null
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
@@ -913,6 +904,7 @@ class Client
             'inn' => $inn,
             'description' => $description,
             'order_slug' => $orderSlug,
+            'reciept_id' => $recieptId,
         ]);
 
         return $this->exec('POST', 'account/transfer', [], $params);
@@ -922,19 +914,20 @@ class Client
      * Refill card by cardNumber
      *
      * POST /api/v1/refill/unregistered/card
-     *
-     * @param string $cardNumber
-     * @param int|null $amount
-     * @param string|null $orderSlug
-     * @return array
      */
-    public function paymentToUnregisteredCard(string $cardNumber, ?int $amount, ?string $orderSlug, bool $percentsOnUser = false): array
-    {
+    public function paymentToUnregisteredCard(
+        string $cardNumber,
+        ?int $amount,
+        ?string $orderSlug,
+        bool $percentsOnUser = false,
+        ?string $recieptId = null
+    ): array {
         $params = [
             'card_number' => $cardNumber,
             'amount' => $amount,
             'order_slug' => $orderSlug,
             'percents_on_user' => $percentsOnUser,
+            'reciept_id' => $recieptId,
         ];
 
         return $this->exec('POST', 'refill/unregistered/card', [], $params);
