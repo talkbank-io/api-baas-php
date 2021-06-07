@@ -911,6 +911,14 @@ class Client
     }
 
     /**
+     * POST /api/v1/account/transfer/{order_slug}
+     */
+    public function paymentToAccountStatus(string $orderSlug): array
+    {
+        return $this->exec('GET', 'account/transfer/' . $orderSlug);
+    }
+
+    /**
      * Refill card by cardNumber
      *
      * POST /api/v1/refill/unregistered/card
