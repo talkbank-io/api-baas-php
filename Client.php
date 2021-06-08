@@ -4,6 +4,8 @@ namespace TalkBank\ApiBaaS;
 
 use GuzzleHttp\Client as GuzzleClient;
 
+use function GuzzleHttp\Psr7\str;
+
 /**
  * API for partners
  *   $client = new Client('http://localhost/api/v1/', '000a...', 'a00000....');
@@ -852,13 +854,15 @@ class Client
         string $cardToken,
         int $amount,
         ?string $orderSlug,
-        bool $percentsOnUser = false
+        bool $percentsOnUser = false,
+        ?string $receiptId = null
     ): array {
         $params = $this->filterParams([
             'card_token' => $cardToken,
             'amount' => $amount,
             'order_slug' => $orderSlug,
             'percents_on_user' => $percentsOnUser,
+            'receipt_id' => $receiptId,
         ]);
 
         return $this->exec('POST', sprintf('payment/to/%s/registered/card', $clientId), [], $params);
@@ -911,7 +915,7 @@ class Client
     }
 
     /**
-     * POST /api/v1/account/transfer/{order_slug}
+     * GET /api/v1/account/transfer/{order_slug}
      */
     public function paymentToAccountStatus(string $orderSlug): array
     {
@@ -955,13 +959,15 @@ class Client
         int $amount,
         ?string $orderSlug = null,
         ?string $redirectUrl = null,
-        bool $percentsOnUser = false
+        bool $percentsOnUser = false,
+        ?string $receiptId = null
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
             'order_slug' => $orderSlug,
             'redirect_url' => $redirectUrl,
             'percents_on_user' => $percentsOnUser,
+            'receipt_id' => $receiptId,
         ]);
 
         return $this->exec('POST', sprintf('refill/%s/unregistered/card/with/form', $clientId), [], $params);
