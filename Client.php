@@ -4,8 +4,6 @@ namespace TalkBank\ApiBaaS;
 
 use GuzzleHttp\Client as GuzzleClient;
 
-use function GuzzleHttp\Psr7\str;
-
 /**
  * API for partners
  *   $client = new Client('http://localhost/api/v1/', '000a...', 'a00000....');
