@@ -1187,6 +1187,29 @@ class Client
     }
 
     /**
+     * Refund payment
+     *
+     * POST /api/v1/refund
+     */
+    public function refund(string $orderSlug, ?int $amount = null): array
+    {
+        return $this->exec('POST', 'refund', [], [
+            'order_slug' => $orderSlug,
+            'amount' => $amount,
+        ]);
+    }
+
+    /**
+     * Reverse payment
+     *
+     * POST /api/v1/reverse
+     */
+    public function reverse(string $orderSlug): array
+    {
+        return $this->exec('POST', 'reverse', [], ['order_slug' => $orderSlug]);
+    }
+
+    /**
      * @param string $method
      * @param string $path
      * @param array $query
