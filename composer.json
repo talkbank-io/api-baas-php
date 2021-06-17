@@ -3,12 +3,12 @@
     "description": "BaaS API by TalkBank",
     "license": "MIT",
     "require": {
-        "php": "^7.1",
+        "php": ">=7.1",
         "ext-json": "*",
         "guzzlehttp/guzzle": "^6.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "6.4.*"
+        "phpunit/phpunit": ">=6"
     },
     "authors": [
         {

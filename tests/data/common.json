@@ -1361,29 +1361,6 @@
   ],
   [
     {
-      "method": "cardPdf",
-      "arguments": [
-        "1",
-        "2000005630101"
-      ],
-      "result": {
-        "expected": {}
-      },
-      "mock": {
-        "httpClient": {
-          "request": {
-            "type": "GET"
-          },
-          "response": {
-            "code": 200,
-            "data": {}
-          }
-        }
-      }
-    }
-  ],
-  [
-    {
       "method": "clientStore",
       "arguments": [
         "itsclient1",

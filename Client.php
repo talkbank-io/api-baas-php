@@ -1277,7 +1277,7 @@ class Client
         }
 
         $content = $response->getBody()->getContents(); // json or string?
-        return in_array($content{0}, ['{', '[']) ? json_decode($content, true) : $content;
+        return in_array($content[0], ['{', '[']) ? json_decode($content, true) : $content;
     }
 
     /**
