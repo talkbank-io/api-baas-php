@@ -1210,6 +1210,34 @@ class Client
     }
 
     /**
+     * Create itelier order in marketplace
+     *
+     * POST /api/v1/marketplace/itelier/order
+     */
+    public function itelierCreateOrder(
+        string $atelierId,
+        string $atelierName,
+        string $atelierBranchId,
+        string $atelierBranchAddress,
+        string $clientId,
+        string $clientName,
+        string $transactionId,
+        array $transactionDetails
+    ): array
+    {
+        return $this->exec('POST', 'marketplace/itelier/order', [], [
+            'atelier_id' => $atelierId,
+            'atelier_name' => $atelierName,
+            'atelier_branch_id' => $atelierBranchId,
+            'atelier_branch_address' => $atelierBranchAddress,
+            'client_id' => $clientId,
+            'client_name' => $clientName,
+            'transaction_id' => $transactionId,
+            'transaction_details' => $transactionDetails
+        ]);
+    }
+
+    /**
      * @param string $method
      * @param string $path
      * @param array $query
