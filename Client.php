@@ -1238,6 +1238,24 @@ class Client
     }
 
     /**
+     * Create itelier atelier in marketplace
+     *
+     * POST /api/v1/marketplace/itelier/atelier
+     */
+    public function itelierCreateAtelier(
+        string $atelierId,
+        string $atelierName,
+        array $atelierDetails
+    ): array
+    {
+        return $this->exec('POST', 'marketplace/itelier/atelier', [], [
+            'atelier_id' => $atelierId,
+            'atelier_name' => $atelierName,
+            'atelier_details' => $atelierDetails
+        ]);
+    }
+
+    /**
      * @param string $method
      * @param string $path
      * @param array $query

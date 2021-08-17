@@ -69,6 +69,7 @@ Bank as a service by TalkBank
  * GET /client/v1/status/{hash}
 ### Marketplace
 * POST /marketplace/itelier/order
+* POST /marketplace/itelier/atelier
 
 ## Unit tests
 Run tests: `php bin/phpunit tests/ApiClientTest.php`
