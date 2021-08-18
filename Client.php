@@ -1223,8 +1223,7 @@ class Client
         string $clientName,
         string $transactionId,
         array $transactionDetails
-    ): array
-    {
+    ): array {
         return $this->exec('POST', 'marketplace/itelier/order', [], [
             'atelier_id' => $atelierId,
             'atelier_name' => $atelierName,
@@ -1246,8 +1245,7 @@ class Client
         string $atelierId,
         string $atelierName,
         array $atelierDetails
-    ): array
-    {
+    ): array {
         return $this->exec('POST', 'marketplace/itelier/atelier', [], [
             'atelier_id' => $atelierId,
             'atelier_name' => $atelierName,
