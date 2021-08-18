@@ -913,6 +913,55 @@ class Client
     }
 
     /**
+     * Payment to account with tax data
+     *
+     * POST /api/v1/account/transfer/tax
+     */
+    public function paymentToAccountWithTaxData(
+        int $amount,
+        string $account,
+        string $bik,
+        string $name,
+        string $inn,
+        string $kpp,
+        string $kbk,
+        string $okato,
+        string $paymentBase,
+        string $taxPeriod,
+        string $taxDocNum,
+        string $taxDocDate,
+        string $uin,
+        string $payerInn,
+        ?string $payerName = null,
+        ?string $description = null,
+        ?string $orderSlug = null,
+        ?string $receiptId = null
+    ): array {
+        $params = $this->filterParams([
+            'amount' => $amount,
+            'account' => $account,
+            'bik' => $bik,
+            'name' => $name,
+            'inn' => $inn,
+            'kpp' => $kpp,
+            'kbk' => $kbk,
+            'okato' => $okato,
+            'payment_base' => $paymentBase,
+            'tax_period' => $taxPeriod,
+            'tax_doc_num' => $taxDocNum,
+            'tax_doc_date' => $taxDocDate,
+            'uin' => $uin,
+            'payer_inn' => $payerInn,
+            'payer_name' => $payerName,
+            'description' => $description,
+            'order_slug' => $orderSlug,
+            'receipt_id' => $receiptId,
+        ]);
+
+        return $this->exec('POST', 'account/transfer/tax', [], $params);
+    }
+
+    /**
      * GET /api/v1/account/transfer/{order_slug}
      */
     public function paymentToAccountStatus(string $orderSlug): array
