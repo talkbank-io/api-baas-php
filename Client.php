@@ -1034,6 +1034,16 @@ class Client
     }
 
     /**
+     * Get direct payment receipt
+     *
+     * GET /api/v1/payment/{order_slug}/receipt
+     */
+    public function paymentReceipt(string $orderSlug): array
+    {
+        return $this->exec('GET', sprintf('payment/%s/receipt', $orderSlug));
+    }
+
+    /**
      * Get identification pdf for Client/Card (a few banks only)
      *
      * GET /api/v1/clients/{client_id}/pdf
