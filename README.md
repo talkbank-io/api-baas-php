@@ -59,6 +59,7 @@ Bank as a service by TalkBank
  * POST /refill/unregistered/card
  * POST /refill/{client_id}/unregistered/card/with/form
  * GET /payment/{order_slug}
+ * GET /api/v1/payment/{order_slug}/receipt
 ### Self-employment's Methods
  * GET /selfemployments/{client_id}
 ### Clients
