@@ -1,6 +1,11 @@
 # Changelog
 Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.17.0] - 2021-09-10
+### Added
+- Method bindSelfemployments
+- Method checkBindSelfemployments
+
 ## [v1.16.0] - 2021-09-10
 ### Added 
 - Method paymentReceipt
