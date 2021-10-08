@@ -591,13 +591,15 @@ class Client
         int $amount,
         ?string $orderId = null,
         bool $percentsOnUser = false,
-        ?string $receiptId = null
+        ?string $receiptId = null,
+        ?string $beneficiaryId = null
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
             'order_slug' => $orderId,
             'percents_on_user' => $percentsOnUser,
             'receipt_id' => $receiptId,
+            'beneficiary_id' => $beneficiaryId,
         ]);
 
         return $this->exec('POST', sprintf('clients/%s/cards/%s/refill', $clientId, $barcode), [], $params);
@@ -840,12 +842,6 @@ class Client
 
     /**
      * POST /api/v1/payment/to/{client_id}/registered/card
-     *
-     * @param string $clientId
-     * @param string $cardToken
-     * @param int $amount
-     * @param string|null $orderSlug
-     * @return array
      */
     public function paymentToRegisteredCard(
         string $clientId,
@@ -853,7 +849,8 @@ class Client
         int $amount,
         ?string $orderSlug,
         bool $percentsOnUser = false,
-        ?string $receiptId = null
+        ?string $receiptId = null,
+        ?string $beneficiaryId = null
     ): array {
         $params = $this->filterParams([
             'card_token' => $cardToken,
@@ -861,6 +858,7 @@ class Client
             'order_slug' => $orderSlug,
             'percents_on_user' => $percentsOnUser,
             'receipt_id' => $receiptId,
+            'beneficiary_id' => $beneficiaryId,
         ]);
 
         return $this->exec('POST', sprintf('payment/to/%s/registered/card', $clientId), [], $params);
@@ -896,7 +894,8 @@ class Client
         ?string $inn = null,
         ?string $description = null,
         ?string $orderSlug = null,
-        ?string $receiptId = null
+        ?string $receiptId = null,
+        ?string $beneficiaryId = null
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
@@ -907,6 +906,7 @@ class Client
             'description' => $description,
             'order_slug' => $orderSlug,
             'receipt_id' => $receiptId,
+            'beneficiary_id' => $beneficiaryId,
         ]);
 
         return $this->exec('POST', 'account/transfer', [], $params);
@@ -935,7 +935,8 @@ class Client
         ?string $payerName = null,
         ?string $description = null,
         ?string $orderSlug = null,
-        ?string $receiptId = null
+        ?string $receiptId = null,
+        ?string $beneficiaryId = null
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
@@ -956,6 +957,7 @@ class Client
             'description' => $description,
             'order_slug' => $orderSlug,
             'receipt_id' => $receiptId,
+            'beneficiary_id' => $beneficiaryId,
         ]);
 
         return $this->exec('POST', 'account/transfer/tax', [], $params);
@@ -979,7 +981,8 @@ class Client
         ?int $amount,
         ?string $orderSlug,
         bool $percentsOnUser = false,
-        ?string $receiptId = null
+        ?string $receiptId = null,
+        ?string $beneficiaryId = null
     ): array {
         $params = [
             'card_number' => $cardNumber,
@@ -987,6 +990,7 @@ class Client
             'order_slug' => $orderSlug,
             'percents_on_user' => $percentsOnUser,
             'receipt_id' => $receiptId,
+            'beneficiary_id' => $beneficiaryId,
         ];
 
         return $this->exec('POST', 'refill/unregistered/card', [], $params);
@@ -1007,7 +1011,8 @@ class Client
         ?string $orderSlug = null,
         ?string $redirectUrl = null,
         bool $percentsOnUser = false,
-        ?string $receiptId = null
+        ?string $receiptId = null,
+        ?string $beneficiaryId = null
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
@@ -1015,6 +1020,7 @@ class Client
             'redirect_url' => $redirectUrl,
             'percents_on_user' => $percentsOnUser,
             'receipt_id' => $receiptId,
+            'beneficiary_id' => $beneficiaryId,
         ]);
 
         return $this->exec('POST', sprintf('refill/%s/unregistered/card/with/form', $clientId), [], $params);
@@ -1338,6 +1344,63 @@ class Client
             'atelier_name' => $atelierName,
             'atelier_details' => $atelierDetails
         ]);
+    }
+
+    /**
+     * GET /api/v1/beneficiaries
+     */
+    public function beneficiaryList(): array
+    {
+        return $this->exec('GET', 'beneficiaries');
+    }
+
+    /**
+     * POST /api/v1/beneficiaries
+     */
+    public function beneficiaryAdd(string $name, string $inn, bool $isBlocked = false, ?float $commissionProc = null): array
+    {
+        return $this->exec('POST', 'beneficiaries', [], [
+            'name' => $name,
+            'inn' => $inn,
+            'is_blocked' => $isBlocked,
+            'commission_proc' => $commissionProc,
+        ]);
+    }
+
+    /**
+     * PUT /api/v1/beneficiaries/{beneficiary_id}
+     */
+    public function beneficiaryEdit(string $beneficiaryId, array $params): array
+    {
+        return $this->exec('PUT', sprintf('beneficiaries/%s', $beneficiaryId), [], $params);
+    }
+
+    /**
+     * PUT /api/v1/beneficiaries/{beneficiary_id}
+     */
+    public function beneficiaryBlock(string $beneficiaryId): array
+    {
+        return $this->exec('PUT', sprintf('beneficiaries/%s', $beneficiaryId), [], [
+            'is_blocked' => true,
+        ]);
+    }
+
+    /**
+     * PUT /api/v1/beneficiaries/{beneficiary_id}
+     */
+    public function beneficiaryUnblock(string $beneficiaryId): array
+    {
+        return $this->exec('PUT', sprintf('beneficiaries/%s', $beneficiaryId), [], [
+            'is_blocked' => false,
+        ]);
+    }
+
+    /**
+     * GET /api/v1/beneficiaries/{beneficiary_id}
+     */
+    public function beneficiaryShow(string $beneficiaryId): array
+    {
+        return $this->exec('GET', sprintf('beneficiaries/%s', $beneficiaryId));
     }
 
     /**

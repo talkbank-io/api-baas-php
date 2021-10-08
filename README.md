@@ -73,6 +73,11 @@ Bank as a service by TalkBank
 ### Marketplace
 * POST /marketplace/itelier/order
 * POST /marketplace/itelier/atelier
+# Beneficiaries
+* GET /api/v1/beneficiaries
+* POST /api/v1/beneficiaries
+* PUT /api/v1/beneficiaries/{beneficiary_id}
+* GET /api/v1/beneficiaries/{beneficiary_id}
 
 ## Unit tests
 Run tests: `php bin/phpunit tests/ApiClientTest.php`
