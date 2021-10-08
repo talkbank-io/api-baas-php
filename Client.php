@@ -1164,6 +1164,34 @@ class Client
     }
 
     /**
+     * POST /api/v1/selfemployments/{client_id}/bind
+     *
+     * @param string $clientId
+     * @param string $requestId
+     * @return array
+     */
+    public function bindSelfemployments(string $clientId, string $requestId): array
+    {
+        return $this->exec('POST', sprintf('selfemployments/%s/bind', $clientId), [], [
+            'RequestId' => $requestId,
+        ]);
+    }
+
+    /**
+     * POST /api/v1/selfemployments/{client_id}/check_bind
+     *
+     * @param string $clientId
+     * @param string $requestId
+     * @return array
+     */
+    public function checkBindSelfemployments(string $clientId, string $requestId): array
+    {
+        return $this->exec('POST', sprintf('selfemployments/%s/check_bind', $clientId), [], [
+            'RequestId' => $requestId,
+        ]);
+    }
+
+    /**
      * Refill a card on the client-side using a temp token,
      * see payment_to_unregistered_card_token & payment_to_unregistered_card_with_form
      *
