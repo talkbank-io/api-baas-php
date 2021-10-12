@@ -3,6 +3,7 @@
 namespace TalkBank\ApiBaaS;
 
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * API for partners
@@ -1357,13 +1358,12 @@ class Client
     /**
      * POST /api/v1/beneficiaries
      */
-    public function beneficiaryAdd(string $name, string $inn, bool $isBlocked = false, ?float $commissionProc = null): array
+    public function beneficiaryAdd(string $name, string $inn, bool $isBlocked = false): array
     {
         return $this->exec('POST', 'beneficiaries', [], [
             'name' => $name,
             'inn' => $inn,
             'is_blocked' => $isBlocked,
-            'commission_proc' => $commissionProc,
         ]);
     }
 
@@ -1372,7 +1372,7 @@ class Client
      */
     public function beneficiaryEdit(string $beneficiaryId, array $params): array
     {
-        return $this->exec('PUT', sprintf('beneficiaries/%s', $beneficiaryId), [], $params);
+        return $this->exec('PUT', \sprintf('beneficiaries/%s', $beneficiaryId), [], $params);
     }
 
     /**
@@ -1380,7 +1380,7 @@ class Client
      */
     public function beneficiaryBlock(string $beneficiaryId): array
     {
-        return $this->exec('PUT', sprintf('beneficiaries/%s', $beneficiaryId), [], [
+        return $this->exec('PUT', \sprintf('beneficiaries/%s', $beneficiaryId), [], [
             'is_blocked' => true,
         ]);
     }
@@ -1390,7 +1390,7 @@ class Client
      */
     public function beneficiaryUnblock(string $beneficiaryId): array
     {
-        return $this->exec('PUT', sprintf('beneficiaries/%s', $beneficiaryId), [], [
+        return $this->exec('PUT', \sprintf('beneficiaries/%s', $beneficiaryId), [], [
             'is_blocked' => false,
         ]);
     }
@@ -1400,15 +1400,63 @@ class Client
      */
     public function beneficiaryShow(string $beneficiaryId): array
     {
-        return $this->exec('GET', sprintf('beneficiaries/%s', $beneficiaryId));
+        return $this->exec('GET', \sprintf('beneficiaries/%s', $beneficiaryId));
     }
 
     /**
-     * @param string $method
-     * @param string $path
-     * @param array $query
-     * @param array $params
-     * @return mixed
+     * GET /api/v1/beneficiaries/{beneficiary_id}/commissions
+     */
+    public function beneficiaryCommissionList(string $beneficiaryId): array
+    {
+        return $this->exec('GET', \sprintf('beneficiaries/%s/commissions', $beneficiaryId));
+    }
+
+    /**
+     * POST /api/v1/beneficiaries/{beneficiary_id}/commissions
+     */
+    public function beneficiaryCommissionAdd(
+        string $beneficiaryId,
+        \DateTimeInterface $willStartAt,
+        ?float $percentage = null,
+        ?int $fixedPart = null,
+        ?int $minimum = null
+    ): array {
+        return $this->exec('POST', \sprintf('beneficiaries/%s/commissions', $beneficiaryId), [], [
+            'will_start_at' => $willStartAt->format('Y-m-d H:i:s e'),
+            'percentage' => $percentage,
+            'fixed_part' => $fixedPart,
+            'minimum' => $minimum,
+        ]);
+    }
+
+    /**
+     * PUT /api/v1/beneficiaries/{beneficiary_id}/commissions/{commission_id}
+     */
+    public function beneficiaryCommissionEdit(
+        string $beneficiaryId,
+        string $commissionId,
+        ?\DateTimeInterface $willStartAt = null,
+        ?float $percentage = null,
+        ?int $fixedPart = null,
+        ?int $minimum = null
+    ): array {
+        return $this->exec('PUT', \sprintf('beneficiaries/%s/commissions/%s', $beneficiaryId, $commissionId), [], [
+            'will_start_at' => $willStartAt ? $willStartAt->format('Y-m-d H:i:s e') : null,
+            'percentage' => $percentage,
+            'fixed_part' => $fixedPart,
+            'minimum' => $minimum,
+        ]);
+    }
+
+    /**
+     * DELETE /api/v1/beneficiaries/{beneficiary_id}/commissions/{commission_id}
+     */
+    public function beneficiaryCommissionDelete(string $beneficiaryId, string $commissionId): array
+    {
+        return $this->exec('DELETE', \sprintf('beneficiaries/%s/commissions/%s', $beneficiaryId, $commissionId));
+    }
+
+    /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function exec(string $method, string $path, array $query = [], array $params = [])
@@ -1463,11 +1511,14 @@ class Client
             ]);
         } catch (\Exception $exception) {
             if ($this->isDebug) {
-                var_dump($exception->getResponse()->getBody()->getContents());
-                exit;
-            } else {
-                throw $exception;
+                if ($exception instanceof GuzzleException) {
+                    echo $exception->getResponse()->getBody()->getContents() . PHP_EOL;
+                } else {
+                    echo $exception->getMessage() . PHP_EOL;
+                }
             }
+
+            throw $exception;
         }
 
         $content = $response->getBody()->getContents(); // json or string?
