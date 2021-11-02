@@ -1183,6 +1183,59 @@ class Client
     }
 
     /**
+     * GET /api/v1/selfemployments/{client_id}/income_reference
+     *
+     * @param string $clientId
+     * @param string $requestYear (YYYY)
+     * @return array
+     */
+    public function selfemploymentsIncomeReference(string $clientId, string $requestYear): array
+    {
+        return $this->exec('GET', sprintf('selfemployments/%s/income_reference', $clientId), [
+            'requestYear' => $requestYear,
+        ]);
+    }
+
+    /**
+     * GET /api/v1/selfemployments/{client_id}/registration_reference
+     *
+     * @param string $clientId
+     * @param string $requestYear (YYYY)
+     * @return array
+     */
+    public function selfemploymentsRegistrationReference(string $clientId, string $requestYear): array
+    {
+        return $this->exec('GET', sprintf('selfemployments/%s/registration_reference', $clientId), [
+            'requestYear' => $requestYear,
+        ]);
+    }
+
+    /**
+     * GET /api/v1/selfemployments/{client_id}/account_status
+     *
+     * @param string $clientId
+     * @return array
+     */
+    public function selfemploymentsAccountStatus(string $clientId): array
+    {
+        return $this->exec('GET', sprintf('selfemployments/%s/account_status', $clientId));
+    }
+
+    /**
+     * GET /api/v1/selfemployments/{client_id}/income
+     *
+     * @param string $clientId
+     * @param string $taxPeriod (YYYYMM)
+     * @return array
+     */
+    public function selfemploymentsIncome(string $clientId, string $taxPeriod): array
+    {
+        return $this->exec('GET', sprintf('selfemployments/%s/income', $clientId), [
+            'taxPeriod' => $taxPeriod,
+        ]);
+    }
+
+    /**
      * POST /api/v1/selfemployments/{client_id}/check_bind
      *
      * @param string $clientId

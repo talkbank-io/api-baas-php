@@ -1,6 +1,13 @@
 # Changelog
 Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.21.0] - 2021-11-02
+### Added
+- Method selfemploymentsIncomeReference
+- Method selfemploymentsRegistrationReference
+- Method selfemploymentsAccountStatus
+- Method selfemploymentsIncome
+
 ## [v1.20.0] - 2021-10-14
 ### Removed
 - Parameter $beneficiaryId in method paymentToAccountWithTaxData
