@@ -1361,9 +1361,6 @@ class Client
      */
     public function itelierCreateOrder(
         string $atelierId,
-        string $atelierName,
-        string $atelierBranchId,
-        string $atelierBranchAddress,
         string $clientId,
         string $clientName,
         string $transactionId,
@@ -1371,9 +1368,6 @@ class Client
     ): array {
         return $this->exec('POST', 'marketplace/itelier/order', [], [
             'atelier_id' => $atelierId,
-            'atelier_name' => $atelierName,
-            'atelier_branch_id' => $atelierBranchId,
-            'atelier_branch_address' => $atelierBranchAddress,
             'client_id' => $clientId,
             'client_name' => $clientName,
             'transaction_id' => $transactionId,
