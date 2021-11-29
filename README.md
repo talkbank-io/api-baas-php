@@ -68,6 +68,7 @@ Bank as a service by TalkBank
  * GET /selfemployments/{client_id}/income
  * POST /selfemployments/{client_id}/bind
  * POST /selfemployments/{client_id}/check_bind
+ * POST /selfemployments/{client_id}/receipt-async
 ### Clients
  * POST /client/v1/charge
  * POST /client/v1/refill

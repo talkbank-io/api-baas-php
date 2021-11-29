@@ -1183,6 +1183,50 @@ class Client
     }
 
     /**
+     * POST /api/v1/selfemployments/{client_id}/receipt-async
+     *
+     * @param string        $clientId
+     * @param string        $operationTime
+     * @param array         $services
+     * @param float         $totalAmount
+     * @param string        $incomeType
+     * @param string | null $requestTime
+     * @param string | null $operationUniqueId
+     * @param string | null $customerInn
+     * @param string | null $customerOrganization
+     * @param string | null $supplierInn
+     * @param array | null  $geoInfo
+     *
+     * @return array
+     */
+    public function registerReceiptAsync(
+        string $clientId,
+        string $operationTime,
+        array $services,
+        float $totalAmount,
+        string $incomeType,
+        ?string $requestTime = null,
+        ?string $operationUniqueId = null,
+        ?string $customerInn = null,
+        ?string $customerOrganization = null,
+        ?string $supplierInn = null,
+        ?array $geoInfo = null
+    ): array {
+        return $this->exec('POST', sprintf('selfemployments/%s/receipt-async', $clientId), [], [
+            'RequestTime' => $requestTime,
+            'OperationTime' => $operationTime,
+            'Services' => $services,
+            'TotalAmount' => $totalAmount,
+            'IncomeType' => $incomeType,
+            'OperationUniqueId' => $operationUniqueId,
+            'CustomerInn' => $customerInn,
+            'CustomerOrganization' => $customerOrganization,
+            'SupplierInn' => $supplierInn,
+            'GeoInfo' => $geoInfo,
+        ]);
+    }
+
+    /**
      * GET /api/v1/selfemployments/{client_id}/income_reference
      *
      * @param string $clientId
