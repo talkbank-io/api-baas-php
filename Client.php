@@ -38,11 +38,11 @@ class Client
      * Client constructor.
      *
      * @param string $baseUri
-     * @param string $partnerId
-     * @param string $token
+     * @param string|null $partnerId
+     * @param string|null $token
      * @param bool $isDebug
      */
-    public function __construct(string $baseUri, string $partnerId, string $token, bool $isDebug = true)
+    public function __construct(string $baseUri, ?string $partnerId = null, ?string $token = null, bool $isDebug = true)
     {
         $this->isDebug = $isDebug;
         $this->token = $token;
@@ -1544,6 +1544,45 @@ class Client
     {
         return $this->exec('DELETE', \sprintf('beneficiaries/%s/commissions/%s', $beneficiaryId, $commissionId));
     }
+
+    public function setAuthData(string $partnerId, string $token)
+    {
+        $this->partnerId = $partnerId;
+        $this->token = $token;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken(string $token): void
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPartnerId(): ?string
+    {
+        return $this->partnerId;
+    }
+
+    /**
+     * @param string $partnerId
+     */
+    public function setPartnerId(string $partnerId): void
+    {
+        $this->partnerId = $partnerId;
+    }
+
 
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
