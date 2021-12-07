@@ -1545,12 +1545,6 @@ class Client
         return $this->exec('DELETE', \sprintf('beneficiaries/%s/commissions/%s', $beneficiaryId, $commissionId));
     }
 
-    public function setAuthData(string $partnerId, string $token)
-    {
-        $this->partnerId = $partnerId;
-        $this->token = $token;
-    }
-
     /**
      * @return string
      */

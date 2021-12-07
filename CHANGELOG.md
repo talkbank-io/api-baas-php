@@ -6,7 +6,6 @@ Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Vers
 - Change construct for make without auth data
 ### Added
 - Add getter/setter for partnerId and token property
-- Add method setAuthData
 
 ## [v1.23.0] - 2021-11-29
 ### Added
