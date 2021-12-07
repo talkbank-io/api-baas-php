@@ -1,6 +1,12 @@
 # Changelog
 Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.23.1] - 2021-12-06
+### Updated
+- Change construct for make without auth data
+### Added
+- Add getter/setter for partnerId and token property
+
 ## [v1.23.0] - 2021-11-29
 ### Added
 - Method registerReceiptAsync
