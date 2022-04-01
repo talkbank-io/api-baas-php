@@ -1,6 +1,10 @@
 # Changelog
 Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.25.0] - 2022-04-01
+### Updated
+- Updated signature of method paymentToAccount
+
 ## [v1.24.0] - 2021-12-06
 ### Updated
 - Change construct for make without auth data
