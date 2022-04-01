@@ -896,7 +896,8 @@ class Client
         ?string $description = null,
         ?string $orderSlug = null,
         ?string $receiptId = null,
-        ?string $beneficiaryId = null
+        ?string $beneficiaryId = null,
+        ?array $receiptIds = null
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
@@ -908,6 +909,7 @@ class Client
             'order_slug' => $orderSlug,
             'receipt_id' => $receiptId,
             'beneficiary_id' => $beneficiaryId,
+            'receipt_ids' => $receiptIds,
         ]);
 
         return $this->exec('POST', 'account/transfer', [], $params);
