@@ -593,7 +593,8 @@ class Client
         ?string $orderId = null,
         bool $percentsOnUser = false,
         ?string $receiptId = null,
-        ?string $beneficiaryId = null
+        ?string $beneficiaryId = null,
+        ?array $receiptIds = null
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
@@ -601,6 +602,7 @@ class Client
             'percents_on_user' => $percentsOnUser,
             'receipt_id' => $receiptId,
             'beneficiary_id' => $beneficiaryId,
+            'receipt_ids' => $receiptIds,
         ]);
 
         return $this->exec('POST', sprintf('clients/%s/cards/%s/refill', $clientId, $barcode), [], $params);
@@ -851,7 +853,8 @@ class Client
         ?string $orderSlug,
         bool $percentsOnUser = false,
         ?string $receiptId = null,
-        ?string $beneficiaryId = null
+        ?string $beneficiaryId = null,
+        ?array $receiptIds = null
     ): array {
         $params = $this->filterParams([
             'card_token' => $cardToken,
@@ -860,6 +863,7 @@ class Client
             'percents_on_user' => $percentsOnUser,
             'receipt_id' => $receiptId,
             'beneficiary_id' => $beneficiaryId,
+            'receipt_ids' => $receiptIds,
         ]);
 
         return $this->exec('POST', sprintf('payment/to/%s/registered/card', $clientId), [], $params);
@@ -983,7 +987,8 @@ class Client
         ?string $orderSlug,
         bool $percentsOnUser = false,
         ?string $receiptId = null,
-        ?string $beneficiaryId = null
+        ?string $beneficiaryId = null,
+        ?array $receiptIds = null
     ): array {
         $params = [
             'card_number' => $cardNumber,
@@ -992,6 +997,7 @@ class Client
             'percents_on_user' => $percentsOnUser,
             'receipt_id' => $receiptId,
             'beneficiary_id' => $beneficiaryId,
+            'receipt_ids' => $receiptIds,
         ];
 
         return $this->exec('POST', 'refill/unregistered/card', [], $params);
