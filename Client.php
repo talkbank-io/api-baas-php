@@ -941,8 +941,7 @@ class Client
         string $payerInn,
         ?string $payerName = null,
         ?string $description = null,
-        ?string $orderSlug = null,
-        ?string $receiptId = null
+        ?string $orderSlug = null
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
@@ -962,7 +961,6 @@ class Client
             'payer_name' => $payerName,
             'description' => $description,
             'order_slug' => $orderSlug,
-            'receipt_id' => $receiptId,
         ]);
 
         return $this->exec('POST', 'account/transfer/tax', [], $params);
@@ -1010,6 +1008,10 @@ class Client
      * @param int $amount
      * @param string|null $orderSlug
      * @param string|null $redirectUrl
+     * @param bool $percentsOnUser
+     * @param string|null $receiptId
+     * @param string|null $beneficiaryId
+     * @param array|null $receiptIds
      * @return array
      */
     public function paymentToUnregisteredCardWithForm(
@@ -1019,7 +1021,8 @@ class Client
         ?string $redirectUrl = null,
         bool $percentsOnUser = false,
         ?string $receiptId = null,
-        ?string $beneficiaryId = null
+        ?string $beneficiaryId = null,
+        ?array $receiptIds = null
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
@@ -1028,6 +1031,7 @@ class Client
             'percents_on_user' => $percentsOnUser,
             'receipt_id' => $receiptId,
             'beneficiary_id' => $beneficiaryId,
+            'receipt_ids' => $receiptIds,
         ]);
 
         return $this->exec('POST', sprintf('refill/%s/unregistered/card/with/form', $clientId), [], $params);
