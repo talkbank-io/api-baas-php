@@ -943,7 +943,8 @@ class Client
         string $payerInn,
         ?string $payerName = null,
         ?string $description = null,
-        ?string $orderSlug = null
+        ?string $orderSlug = null,
+        ?string $formerStatus = null
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
@@ -963,6 +964,7 @@ class Client
             'payer_name' => $payerName,
             'description' => $description,
             'order_slug' => $orderSlug,
+            'former_status' => $formerStatus
         ]);
 
         return $this->exec('POST', 'account/transfer/tax', [], $params);
