@@ -1560,6 +1560,20 @@ class Client
     }
 
     /**
+     * POST /api/v1/payment/{client_id}/from/card/to/card
+     */
+    public function paymentFromCardToCard(string $clientId, ?string $fromRefId = null, ?string $fromEan = null, ?string $toRefId = null, ?string $toEan = null, ?string $redirectUrl = null)
+    {
+        return $this->exec('POST', \sprintf('payment/%s/from/card/to/card', $clientId), [], [
+            'from_ref_id' => $fromRefId,
+            'from_ean' => $fromEan,
+            'to_ref_id' => $toRefId,
+            'to_ean' => $toEan,
+            'redirect_url' => $redirectUrl
+        ]);
+    }
+
+    /**
      * @return string
      */
     public function getToken(): ?string
