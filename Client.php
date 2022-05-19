@@ -942,7 +942,7 @@ class Client
         ?string $payerName = null,
         ?string $description = null,
         ?string $orderSlug = null,
-        ?int $formerStatus = null
+        ?string $formerStatus = null
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
