@@ -1228,7 +1228,7 @@ class Client
         ?string $supplierInn = null,
         ?array $geoInfo = null
     ): array {
-        return $this->exec('POST', sprintf('selfemployments/%s/receipt-async', $clientId), [], [
+        return $this->exec('POST', sprintf('selfemployments/%s/receipt-async', $clientId), [], $this->filterParams([
             'RequestTime' => $requestTime,
             'OperationTime' => $operationTime,
             'Services' => $services,
@@ -1239,7 +1239,7 @@ class Client
             'CustomerOrganization' => $customerOrganization,
             'SupplierInn' => $supplierInn,
             'GeoInfo' => $geoInfo,
-        ]);
+        ]));
     }
 
     /**
