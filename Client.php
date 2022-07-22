@@ -1576,6 +1576,72 @@ class Client
     }
 
     /**
+     * POST /api/v1/sbp/check
+     */
+    public function sbpCheck(
+        string $phone,
+        ?string $bic = null,
+        ?string $bankName = null
+    ) {
+        return $this->exec('POST', 'sbp/check', [], $this->filterParams([
+            'phone' => $phone,
+            'bic' => $bic,
+            'bank_name' => $bankName,
+        ]));
+    }
+
+    /**
+     * POST /api/v1/sbp/payment
+     */
+    public function sbpPayment(
+        string $phone,
+        int $amount,
+        ?string $bic = null,
+        ?string $bankName = null,
+        ?string $orderSlug = null
+    ) {
+        return $this->exec('POST', 'sbp/payment', [], $this->filterParams([
+            'phone' => $phone,
+            'amount' => $amount,
+            'bic' => $bic,
+            'bank_name' => $bankName,
+            'order_slug' => $orderSlug,
+        ]));
+    }
+
+    /**
+     * POST /api/v1/clients/{client_id}/check-sbp
+     */
+    public function sbpClientCheck(
+        string $clientId,
+        ?string $bic = null,
+        ?string $bankName = null
+    ) {
+        return $this->exec('POST', sprintf('clients/%s/check-sbp', $clientId), [], $this->filterParams([
+            'bic' => $bic,
+            'bank_name' => $bankName,
+        ]));
+    }
+
+    /**
+     * POST /api/v1/clients/{client_id}/payment-sbp
+     */
+    public function sbpClientPayment(
+        string $clientId,
+        int $amount,
+        ?string $bic = null,
+        ?string $bankName = null,
+        ?string $orderSlug = null
+    ) {
+        return $this->exec('POST', sprintf('clients/%s/payment-sbp', $clientId), [], $this->filterParams([
+            'amount' => $amount,
+            'bic' => $bic,
+            'bank_name' => $bankName,
+            'order_slug' => $orderSlug,
+        ]));
+    }
+
+    /**
      * @return string
      */
     public function getToken(): ?string

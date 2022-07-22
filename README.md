@@ -61,6 +61,10 @@ Bank as a service by TalkBank
  * GET /payment/{order_slug}
  * GET /api/v1/payment/{order_slug}/receipt
  * POST /api/v1/payment/{client_id}/from/card/to/card
+ * POST /sbp/check
+ * POST /sbp/payment
+ * POST /clients/{client_id}/check-sbp
+ * POST /clients/{client_id}/payment-sbp
 ### Self-employment's Methods
  * GET /selfemployments/{client_id}
  * GET /selfemployments/{client_id}/income_reference
