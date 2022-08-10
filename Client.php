@@ -902,7 +902,8 @@ class Client
         ?string $receiptId = null,
         ?string $beneficiaryId = null,
         ?array $receiptIds = null,
-        ?string $incomeCode = null
+        ?string $incomeCode = null,
+        ?string $currencyControlFileId = null
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
@@ -915,7 +916,8 @@ class Client
             'receipt_id' => $receiptId,
             'beneficiary_id' => $beneficiaryId,
             'receipt_ids' => $receiptIds,
-            'income_code' => $incomeCode
+            'income_code' => $incomeCode,
+            'currency_control_file_id' => $currencyControlFileId
         ]);
 
         return $this->exec('POST', 'account/transfer', [], $params);
