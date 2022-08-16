@@ -1646,8 +1646,13 @@ class Client
     /**
      * POST /api/v1/document-uploader
      */
-    public function uploadDocument(array $params)
+    public function uploadDocument(string $name, string $contents, string $filename)
     {
+        $params = [
+            'name' => $name,
+            'contents' => $contents,
+            'filename' => $filename,
+        ];
         return $this->execMultipart('POST', 'document-uploader', $params);
     }
 
