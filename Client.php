@@ -1783,6 +1783,7 @@ class Client
 
         $string = $method . "\n"; // http verb
         $string .= $fullPath . "\n"; // uri
+        $string .= "\n"; // query
         $string .= implode("\n", $headerString) . "\n"; // headers
         $string .= $hashBody; // payload
 
