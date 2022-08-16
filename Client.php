@@ -1649,9 +1649,11 @@ class Client
     public function uploadDocument(string $name, string $contents, string $filename)
     {
         $params = [
-            'name' => $name,
-            'contents' => $contents,
-            'filename' => $filename,
+            [
+                'name' => $name,
+                'contents' => $contents,
+                'filename' => $filename,
+            ]
         ];
         return $this->execMultipart('POST', 'document-uploader', $params);
     }
