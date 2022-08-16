@@ -14,6 +14,8 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class Client
 {
+    public const DOCUMENT_UPLOAD_FIELD_NAME = 'upload';
+
     /**
      * @var GuzzleClient
      */
@@ -1650,9 +1652,8 @@ class Client
     {
         $params = [
             [
-                'name' => $name,
+                'name' => self::DOCUMENT_UPLOAD_FIELD_NAME,
                 'contents' => $contents,
-                'filename' => $filename,
             ]
         ];
         return $this->execMultipart('POST', 'document-uploader', $params);
