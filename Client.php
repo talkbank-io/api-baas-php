@@ -1648,7 +1648,7 @@ class Client
     /**
      * POST /api/v1/document-uploader
      */
-    public function uploadDocument(string $name, string $contents, string $filename)
+    public function uploadDocument(string $contents)
     {
         $params = [
             [
