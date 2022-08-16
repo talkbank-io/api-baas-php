@@ -1644,6 +1644,14 @@ class Client
     }
 
     /**
+     * POST /api/v1/document-uploader
+     */
+    public function uploadDocument(array $params)
+    {
+        return $this->execMultipart('POST', 'document-uploader', $params);
+    }
+
+    /**
      * @return string
      */
     public function getToken(): ?string
