@@ -1745,6 +1745,58 @@ class Client
         return in_array($content[0], ['{', '[']) ? json_decode($content, true) : $content;
     }
 
+    public function execMultipart(string $method, string $path, array $params = [])
+    {
+        $date = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $date = $date->format(DATE_RFC7231);
+
+        $fullPath = parse_url($this->guzzle->getConfig('base_uri') . $path, PHP_URL_PATH);
+
+        $hashBody = hash('sha256', '');
+
+        $headers = array_change_key_case([
+            'TB-Content-SHA256' => trim($hashBody),
+            'Date' => trim($date),
+        ], CASE_LOWER);
+
+        ksort($headers);
+        $headerString = [];
+
+        foreach ($headers as $name => $value) {
+            $headerString[] = $name . ':' . $value;
+        }
+
+        $string = $method . "\n"; // http verb
+        $string .= $fullPath . "\n"; // uri
+        $string .= implode("\n", $headerString) . "\n"; // headers
+        $string .= $hashBody; // payload
+
+        $signature = hash_hmac('sha256', $string, $this->token);
+
+        try {
+            $response = $this->guzzle->request($method, $path, [
+                'multipart' => $params,
+                'headers' => [
+                    'TB-Content-SHA256' => trim($hashBody),
+                    'Date' => trim($date),
+                    'Authorization' => 'TB1-HMAC-SHA256 ' . $this->partnerId . ':' . $signature,
+                ]]);
+        } catch (\Exception $exception) {
+            if ($this->isDebug) {
+                if ($exception instanceof GuzzleException) {
+                    echo $exception->getResponse()->getBody()->getContents() . PHP_EOL;
+                } else {
+                    echo $exception->getMessage() . PHP_EOL;
+                }
+            }
+
+            throw $exception;
+        }
+
+        $content = $response->getBody()->getContents(); // json or string?
+        return in_array($content[0], ['{', '[']) ? json_decode($content, true) : $content;
+    }
+
     /**
      * @param array $params
      * @return array
