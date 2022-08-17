@@ -1654,7 +1654,7 @@ class Client
             [
                 'name' => self::DOCUMENT_UPLOAD_FIELD_NAME,
                 'contents' => $contents,
-                'filename' => '123'
+                'filename' => null
             ]
         ];
         return $this->execMultipart('POST', 'document-uploader', $params);
