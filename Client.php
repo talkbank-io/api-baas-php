@@ -4,6 +4,7 @@ namespace TalkBank\ApiBaaS;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * API for partners
@@ -1647,14 +1648,15 @@ class Client
 
     /**
      * POST /api/v1/document-uploader
+     * @var StreamInterface|resource|string $contents
      */
-    public function uploadDocument(string $contents)
+    public function uploadDocument($contents)
     {
         $params = [
             [
                 'name' => self::DOCUMENT_UPLOAD_FIELD_NAME,
                 'contents' => $contents,
-                'filename' => 'upload'
+                'filename' => 'upload',
             ]
         ];
         return $this->execMultipart('POST', 'document-uploader', $params);
