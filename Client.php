@@ -4,6 +4,7 @@ namespace TalkBank\ApiBaaS;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * API for partners
@@ -14,6 +15,8 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class Client
 {
+    public const DOCUMENT_UPLOAD_FIELD_NAME = 'upload';
+
     /**
      * @var GuzzleClient
      */
@@ -902,7 +905,8 @@ class Client
         ?string $receiptId = null,
         ?string $beneficiaryId = null,
         ?array $receiptIds = null,
-        ?string $incomeCode = null
+        ?string $incomeCode = null,
+        ?string $currencyControlFileId = null
     ): array {
         $params = $this->filterParams([
             'amount' => $amount,
@@ -915,7 +919,8 @@ class Client
             'receipt_id' => $receiptId,
             'beneficiary_id' => $beneficiaryId,
             'receipt_ids' => $receiptIds,
-            'income_code' => $incomeCode
+            'income_code' => $incomeCode,
+            'currency_control_file_id' => $currencyControlFileId
         ]);
 
         return $this->exec('POST', 'account/transfer', [], $params);
@@ -1642,6 +1647,22 @@ class Client
     }
 
     /**
+     * POST /api/v1/document-uploader
+     * @var StreamInterface|resource|string $contents
+     */
+    public function uploadDocument($contents)
+    {
+        $params = [
+            [
+                'name' => self::DOCUMENT_UPLOAD_FIELD_NAME,
+                'contents' => $contents,
+                'filename' => 'upload',
+            ]
+        ];
+        return $this->execMultipart('POST', 'document-uploader', $params);
+    }
+
+    /**
      * @return string
      */
     public function getToken(): ?string
@@ -1727,6 +1748,59 @@ class Client
                     'Authorization' => 'TB1-HMAC-SHA256 ' . $this->partnerId . ':' . $signature,
                 ]
             ]);
+        } catch (\Exception $exception) {
+            if ($this->isDebug) {
+                if ($exception instanceof GuzzleException) {
+                    echo $exception->getResponse()->getBody()->getContents() . PHP_EOL;
+                } else {
+                    echo $exception->getMessage() . PHP_EOL;
+                }
+            }
+
+            throw $exception;
+        }
+
+        $content = $response->getBody()->getContents(); // json or string?
+        return in_array($content[0], ['{', '[']) ? json_decode($content, true) : $content;
+    }
+
+    public function execMultipart(string $method, string $path, array $params = [])
+    {
+        $date = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $date = $date->format(DATE_RFC7231);
+
+        $fullPath = parse_url($this->guzzle->getConfig('base_uri') . $path, PHP_URL_PATH);
+
+        $hashBody = hash('sha256', '');
+
+        $headers = array_change_key_case([
+            'TB-Content-SHA256' => trim($hashBody),
+            'Date' => trim($date),
+        ], CASE_LOWER);
+
+        ksort($headers);
+        $headerString = [];
+
+        foreach ($headers as $name => $value) {
+            $headerString[] = $name . ':' . $value;
+        }
+
+        $string = $method . "\n"; // http verb
+        $string .= $fullPath . "\n"; // uri
+        $string .= "\n"; // query
+        $string .= implode("\n", $headerString) . "\n"; // headers
+        $string .= $hashBody; // payload
+
+        $signature = hash_hmac('sha256', $string, $this->token);
+
+        try {
+            $response = $this->guzzle->request($method, $path, [
+                'multipart' => $params,
+                'headers' => [
+                    'TB-Content-SHA256' => trim($hashBody),
+                    'Date' => trim($date),
+                    'Authorization' => 'TB1-HMAC-SHA256 ' . $this->partnerId . ':' . $signature,
+                ]]);
         } catch (\Exception $exception) {
             if ($this->isDebug) {
                 if ($exception instanceof GuzzleException) {
