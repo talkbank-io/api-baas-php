@@ -3,7 +3,7 @@ Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Vers
 
 ## [v1.33.0] - 2022-08-25
 ### Changed
-- Updated signature of method `sbpPayment`
+- Updated signature of method sbpPayment
 
 ## [v1.32.0] - 2022-08-17
 ### Added
