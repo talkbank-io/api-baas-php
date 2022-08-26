@@ -1614,7 +1614,7 @@ class Client
             'bank_name' => $bankName,
             'order_slug' => $orderSlug,
             'beneficiary_id' => $beneficiaryId,
-            'receipt_ids' => $receiptIds
+            'receipt_ids' => $receiptIds,
         ]));
     }
 
@@ -1650,7 +1650,7 @@ class Client
             'bank_name' => $bankName,
             'order_slug' => $orderSlug,
             'beneficiary_id' => $beneficiaryId,
-            'receipt_ids' => $receiptIds
+            'receipt_ids' => $receiptIds,
         ]));
     }
 
