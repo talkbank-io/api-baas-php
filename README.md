@@ -88,6 +88,7 @@ Bank as a service by TalkBank
 * POST /api/v1/beneficiaries
 * PUT /api/v1/beneficiaries/{beneficiary_id}
 * GET /api/v1/beneficiaries/{beneficiary_id}
+* PUT /api/v1/beneficiaries/{beneficiary_id}/update-balance
 * GET /api/v1/beneficiaries/{beneficiary_id}/commissions
 * POST /api/v1/beneficiaries/{beneficiary_id}/commissions
 * PUT /api/v1/beneficiaries/{beneficiary_id}/commissions/{commission_id}

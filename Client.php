@@ -1671,6 +1671,15 @@ class Client
     }
 
     /**
+     * POST /api/v1/beneficiaries/{beneficiary_id}/update-balance
+     */
+    public function beneficiaryBalanceUpdate(string $beneficiaryId, int $amount) {
+        return $this->exec('PUT', sprintf('beneficiaries/%s/update-balance', $beneficiaryId), [], [
+            'amount' => $amount,
+        ]);
+    }
+
+    /**
      * @return string
      */
     public function getToken(): ?string
