@@ -3,7 +3,7 @@ Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Vers
 
 ## [v1.34.0] - 2022-09-07
 ### Added
-- Method `beneficiaryBalanceUpdate`
+- Method `beneficiaryBalanceCorrection`
 
 ## [v1.33.0] - 2022-08-26
 ### Changed

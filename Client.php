@@ -1671,12 +1671,15 @@ class Client
     }
 
     /**
-     * POST /api/v1/beneficiaries/{beneficiary_id}/update-balance
+     * POST /api/v1/beneficiaries/{beneficiary_id}/add-balance-correction
      */
-    public function beneficiaryBalanceUpdate(string $beneficiaryId, int $amount) {
-        return $this->exec('PUT', sprintf('beneficiaries/%s/update-balance', $beneficiaryId), [], [
-            'amount' => $amount,
-        ]);
+    public function beneficiaryBalanceCorrection(string $beneficiaryId, int $amount) {
+        return $this->exec(
+            'PUT',
+            sprintf('beneficiaries/%s/add-balance-correction', $beneficiaryId),
+            [],
+            ['amount' => $amount]
+        );
     }
 
     /**
