@@ -1671,6 +1671,18 @@ class Client
     }
 
     /**
+     * POST /api/v1/beneficiaries/{beneficiary_id}/add-balance-correction
+     */
+    public function beneficiaryBalanceCorrection(string $beneficiaryId, int $amount) {
+        return $this->exec(
+            'PUT',
+            sprintf('beneficiaries/%s/add-balance-correction', $beneficiaryId),
+            [],
+            ['amount' => $amount]
+        );
+    }
+
+    /**
      * @return string
      */
     public function getToken(): ?string
