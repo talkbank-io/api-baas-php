@@ -1,6 +1,13 @@
 # Changelog
 Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.35.0] - 2023-03-28
+### Added
+- Method `sbpCheckAsync`
+- Method `sbpGetCheckAsyncStatus`
+- Method `sbpClientCheckAsync`
+- Method `sbpClientGetCheckAsyncStatus`
+
 ## [v1.34.0] - 2022-09-09
 ### Added
 - Method `beneficiaryBalanceCorrection`
