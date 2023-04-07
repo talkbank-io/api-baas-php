@@ -1599,14 +1599,18 @@ class Client
      * POST /api/v1/sbp/check-async
      */
     public function sbpCheckAsync(
+        string $orderId,
         string $phone,
         ?string $bic = null,
-        ?string $bankName = null
+        ?string $bankName = null,
+        ?string $fio = null
     ) {
         return $this->exec('POST', 'sbp/check-async', [], $this->filterParams([
+            'order_id' => $orderId,
             'phone' => $phone,
             'bic' => $bic,
             'bank_name' => $bankName,
+            'fio' => $fio,
         ]));
     }
 
