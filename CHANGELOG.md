@@ -6,7 +6,6 @@ Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Vers
 - Method `sbpCheckAsync`
 - Method `sbpGetCheckAsyncStatus`
 - Method `sbpClientCheckAsync`
-- Method `sbpClientGetCheckAsyncStatus`
 
 ## [v1.34.0] - 2022-09-09
 ### Added
