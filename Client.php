@@ -1615,11 +1615,11 @@ class Client
     }
 
     /**
-     * GET /api/v1/sbp/get-check-async-status
+     * GET /api/v1/sbp/check-async/status
      */
-    public function sbpGetCheckAsyncStatus(string $id)
+    public function sbpGetCheckAsyncStatus(string $order_id)
     {
-        return $this->exec('POST', 'sbp/check-async/status', [], $this->filterParams(['id' => $id]));
+        return $this->exec('POST', 'sbp/check-async/status', [], $this->filterParams(['order_id' => $order_id]));
     }
 
     /**
@@ -1670,18 +1670,6 @@ class Client
         return $this->exec('POST', sprintf('clients/%s/check-sbp-async', $clientId), [], $this->filterParams([
             'bic' => $bic,
             'bank_name' => $bankName,
-        ]));
-    }
-
-    /**
-     * GET /api/v1/clients/{client_id}/check-sbp-async/status
-     */
-    public function sbpGetClientCheckAsyncStatus(
-        string $clientId,
-        string $id
-    ) {
-        return $this->exec('POST', sprintf('clients/%s/check-sbp-async/status', $clientId), [], $this->filterParams([
-            'id' => $id,
         ]));
     }
 
