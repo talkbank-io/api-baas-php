@@ -1581,14 +1581,14 @@ class Client
     }
 
     /**
-     * POST /api/v1/sbp/check
+     * POST /api/v1/sbp/check-sync
      */
-    public function sbpCheck(
+    public function sbpCheckSync(
         string $phone,
         ?string $bic = null,
         ?string $bankName = null
     ) {
-        return $this->exec('POST', 'sbp/check', [], $this->filterParams([
+        return $this->exec('POST', 'sbp/check-sync', [], $this->filterParams([
             'phone' => $phone,
             'bic' => $bic,
             'bank_name' => $bankName,
@@ -1596,17 +1596,17 @@ class Client
     }
 
     /**
-     * POST /api/v1/sbp/check-async
+     * POST /api/v1/sbp/check
      */
-    public function sbpCheckAsync(
-        string $orderId,
+    public function sbpCheck(
+        string $requestId,
         string $phone,
         ?string $bic = null,
         ?string $bankName = null,
         ?string $fio = null
     ) {
-        return $this->exec('POST', 'sbp/check-async', [], $this->filterParams([
-            'order_id' => $orderId,
+        return $this->exec('POST', 'sbp/check', [], $this->filterParams([
+            'request_id' => $requestId,
             'phone' => $phone,
             'bic' => $bic,
             'bank_name' => $bankName,
@@ -1615,11 +1615,11 @@ class Client
     }
 
     /**
-     * GET /api/v1/sbp/check-async/status
+     * GET /api/v1/sbp/check/status
      */
-    public function sbpGetCheckAsyncStatus(string $order_id)
+    public function sbpGetCheckStatus(string $requestId)
     {
-        return $this->exec('POST', 'sbp/check-async/status', [], $this->filterParams(['order_id' => $order_id]));
+        return $this->exec('POST', 'sbp/check/status', [], $this->filterParams(['request_id' => $requestId]));
     }
 
     /**
@@ -1646,6 +1646,20 @@ class Client
     }
 
     /**
+     * POST /api/v1/clients/{client_id}/check-sbp-sync
+     */
+    public function sbpClientCheckSync(
+        string $clientId,
+        ?string $bic = null,
+        ?string $bankName = null
+    ) {
+        return $this->exec('POST', sprintf('clients/%s/check-sbp-sync', $clientId), [], $this->filterParams([
+            'bic' => $bic,
+            'bank_name' => $bankName,
+        ]));
+    }
+
+    /**
      * POST /api/v1/clients/{client_id}/check-sbp
      */
     public function sbpClientCheck(
@@ -1654,20 +1668,6 @@ class Client
         ?string $bankName = null
     ) {
         return $this->exec('POST', sprintf('clients/%s/check-sbp', $clientId), [], $this->filterParams([
-            'bic' => $bic,
-            'bank_name' => $bankName,
-        ]));
-    }
-
-    /**
-     * POST /api/v1/clients/{client_id}/check-sbp-async
-     */
-    public function sbpClientCheckAsync(
-        string $clientId,
-        ?string $bic = null,
-        ?string $bankName = null
-    ) {
-        return $this->exec('POST', sprintf('clients/%s/check-sbp-async', $clientId), [], $this->filterParams([
             'bic' => $bic,
             'bank_name' => $bankName,
         ]));

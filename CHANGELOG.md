@@ -2,10 +2,13 @@
 Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [v1.35.0] - 2023-04-20
+### Changed
+- Method `sbpCheck`
+- Method `sbpClientCheck`
 ### Added
-- Method `sbpCheckAsync`
-- Method `sbpGetCheckAsyncStatus`
-- Method `sbpClientCheckAsync`
+- Method `sbpCheckSync`
+- Method `sbpClientCheckSync`
+- Method `sbpGetCheckStatus`
 
 ## [v1.34.0] - 2022-09-09
 ### Added
@@ -19,7 +22,7 @@ Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Vers
 ### Added
 - Method `uploadDocument`
 
-## [v1.31.0] - 2022-07-22
+## [v1.31.0] - 2022-07-2`2
 ### Added
 - Method `sbpCheck`
 - Method `sbpPayment`
