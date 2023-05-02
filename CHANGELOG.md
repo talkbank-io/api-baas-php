@@ -22,7 +22,7 @@ Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Vers
 ### Added
 - Method `uploadDocument`
 
-## [v1.31.0] - 2022-07-2`2
+## [v1.31.0] - 2022-07-22
 ### Added
 - Method `sbpCheck`
 - Method `sbpPayment`

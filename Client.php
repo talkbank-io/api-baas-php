@@ -1581,6 +1581,7 @@ class Client
     }
 
     /**
+     * @deprecated
      * POST /api/v1/sbp/check-sync
      */
     public function sbpCheckSync(
@@ -1646,6 +1647,7 @@ class Client
     }
 
     /**
+     * @deprecated
      * POST /api/v1/clients/{client_id}/check-sbp-sync
      */
     public function sbpClientCheckSync(
