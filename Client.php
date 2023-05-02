@@ -1620,7 +1620,7 @@ class Client
      */
     public function sbpGetCheckStatus(string $requestId)
     {
-        return $this->exec('POST', 'sbp/check/status', [], $this->filterParams(['request_id' => $requestId]));
+        return $this->exec('POST', sprintf('sbp/check/%s', $requestId));
     }
 
     /**
