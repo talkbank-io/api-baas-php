@@ -1616,7 +1616,7 @@ class Client
     }
 
     /**
-     * GET /api/v1/sbp/check/status
+     * GET /api/v1/sbp/check/{request_id}
      */
     public function sbpGetCheckStatus(string $requestId)
     {
