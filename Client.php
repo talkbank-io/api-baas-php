@@ -1586,12 +1586,14 @@ class Client
     public function sbpCheck(
         string $phone,
         ?string $bic = null,
-        ?string $bankName = null
+        ?string $bankName = null,
+        ?string $purpose = null
     ) {
         return $this->exec('POST', 'sbp/check', [], $this->filterParams([
             'phone' => $phone,
             'bic' => $bic,
             'bank_name' => $bankName,
+            'purpose' => $purpose
         ]));
     }
 
@@ -1605,7 +1607,8 @@ class Client
         ?string $bankName = null,
         ?string $orderSlug = null,
         ?string $beneficiaryId = null,
-        ?array $receiptIds = null
+        ?array $receiptIds = null,
+        ?string $purpose = null
     ) {
         return $this->exec('POST', 'sbp/payment', [], $this->filterParams([
             'phone' => $phone,
@@ -1615,6 +1618,7 @@ class Client
             'order_slug' => $orderSlug,
             'beneficiary_id' => $beneficiaryId,
             'receipt_ids' => $receiptIds,
+            'purpose' => $purpose
         ]));
     }
 
