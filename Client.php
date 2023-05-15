@@ -1687,7 +1687,8 @@ class Client
         ?string $bankName = null,
         ?string $orderSlug = null,
         ?string $beneficiaryId = null,
-        ?array $receiptIds = null
+        ?array $receiptIds = null,
+        ?string $purpose = null
     ) {
         return $this->exec('POST', sprintf('clients/%s/payment-sbp', $clientId), [], $this->filterParams([
             'amount' => $amount,
@@ -1696,6 +1697,7 @@ class Client
             'order_slug' => $orderSlug,
             'beneficiary_id' => $beneficiaryId,
             'receipt_ids' => $receiptIds,
+            'purpose' => $purpose,
         ]));
     }
 
