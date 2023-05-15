@@ -1587,14 +1587,12 @@ class Client
     public function sbpCheckSync(
         string $phone,
         ?string $bic = null,
-        ?string $bankName = null,
-        ?string $purpose = null
+        ?string $bankName = null
     ) {
         return $this->exec('POST', 'sbp/check-sync', [], $this->filterParams([
             'phone' => $phone,
             'bic' => $bic,
             'bank_name' => $bankName,
-            'purpose' => $purpose
         ]));
     }
 
