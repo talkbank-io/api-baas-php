@@ -1,6 +1,11 @@
 # Changelog
 Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.35.1] - 2023-05-15
+### Changed
+- Method `sbpPayment`
+- Method `sbpClientPayment`
+
 ## [v1.35.0] - 2023-04-20
 ### Changed
 - Method `sbpCheck`
