@@ -1581,18 +1581,46 @@ class Client
     }
 
     /**
-     * POST /api/v1/sbp/check
+     * @deprecated
+     * POST /api/v1/sbp/check-sync
      */
-    public function sbpCheck(
+    public function sbpCheckSync(
         string $phone,
         ?string $bic = null,
         ?string $bankName = null
     ) {
-        return $this->exec('POST', 'sbp/check', [], $this->filterParams([
+        return $this->exec('POST', 'sbp/check-sync', [], $this->filterParams([
             'phone' => $phone,
             'bic' => $bic,
             'bank_name' => $bankName,
         ]));
+    }
+
+    /**
+     * POST /api/v1/sbp/check
+     */
+    public function sbpCheck(
+        string $requestId,
+        string $phone,
+        ?string $bic = null,
+        ?string $bankName = null,
+        ?string $fio = null
+    ) {
+        return $this->exec('POST', 'sbp/check', [], $this->filterParams([
+            'request_id' => $requestId,
+            'phone' => $phone,
+            'bic' => $bic,
+            'bank_name' => $bankName,
+            'fio' => $fio,
+        ]));
+    }
+
+    /**
+     * GET /api/v1/sbp/check/{request_id}
+     */
+    public function sbpGetCheckStatus(string $requestId)
+    {
+        return $this->exec('POST', sprintf('sbp/check/%s', $requestId));
     }
 
     /**
@@ -1615,6 +1643,21 @@ class Client
             'order_slug' => $orderSlug,
             'beneficiary_id' => $beneficiaryId,
             'receipt_ids' => $receiptIds,
+        ]));
+    }
+
+    /**
+     * @deprecated
+     * POST /api/v1/clients/{client_id}/check-sbp-sync
+     */
+    public function sbpClientCheckSync(
+        string $clientId,
+        ?string $bic = null,
+        ?string $bankName = null
+    ) {
+        return $this->exec('POST', sprintf('clients/%s/check-sbp-sync', $clientId), [], $this->filterParams([
+            'bic' => $bic,
+            'bank_name' => $bankName,
         ]));
     }
 
