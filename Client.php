@@ -1634,7 +1634,7 @@ class Client
         ?string $orderSlug = null,
         ?string $beneficiaryId = null,
         ?array $receiptIds = null,
-        ?string $purpose = null
+        ?string $description = null
     ) {
         return $this->exec('POST', 'sbp/payment', [], $this->filterParams([
             'phone' => $phone,
@@ -1644,7 +1644,7 @@ class Client
             'order_slug' => $orderSlug,
             'beneficiary_id' => $beneficiaryId,
             'receipt_ids' => $receiptIds,
-            'purpose' => $purpose
+            'description' => $description
         ]));
     }
 
@@ -1688,7 +1688,7 @@ class Client
         ?string $orderSlug = null,
         ?string $beneficiaryId = null,
         ?array $receiptIds = null,
-        ?string $purpose = null
+        ?string $description = null
     ) {
         return $this->exec('POST', sprintf('clients/%s/payment-sbp', $clientId), [], $this->filterParams([
             'amount' => $amount,
@@ -1697,7 +1697,7 @@ class Client
             'order_slug' => $orderSlug,
             'beneficiary_id' => $beneficiaryId,
             'receipt_ids' => $receiptIds,
-            'purpose' => $purpose,
+            'description' => $description,
         ]));
     }
 
