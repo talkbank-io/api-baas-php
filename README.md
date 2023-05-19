@@ -32,7 +32,7 @@ Bank as a service by TalkBank
 ### Event Subscription Methods
  * GET /event-subscriptions
  * POST /event-subscriptions
- * DELETE /event-subscriptions
+ * DELETE /event-subscriptions/{subscription_id}
 ### Delivery methods
  *  POST /clients/{client_id}/card-deliveries
  *  GET /clients​/{client_id}​/card-deliveries​/{delivery_id}
