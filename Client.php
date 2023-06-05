@@ -1730,6 +1730,14 @@ class Client
     }
 
     /**
+     * DELETE /api/v1/clients/{client_id}
+     */
+    public function clientDelete(string $clientId): array
+    {
+        return $this->exec('DELETE', \sprintf('clients/%s', $clientId));
+    }
+
+    /**
      * @return string
      */
     public function getToken(): ?string
