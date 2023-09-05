@@ -1738,6 +1738,17 @@ class Client
     }
 
     /**
+     * POST /api/v1/form-data
+     */
+    public function createFormData(int $amount, string $formType)
+    {
+        return $this->exec('POST', 'form-data', [], [
+            'amount' => $amount,
+            'form_type' => $formType,
+        ]);
+    }
+
+    /**
      * @return string
      */
     public function getToken(): ?string
