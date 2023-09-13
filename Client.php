@@ -1738,14 +1738,20 @@ class Client
     }
 
     /**
-     * POST /api/v1/form-data
+     * POST /api/v1/clients/{client_id}/payment-qr
      */
-    public function createFormData(int $amount, string $formType)
+    public function sbpQrCodePayment(string $clientId, int $amount, int $qrTtlMin, string $requestId)
     {
-        return $this->exec('POST', 'form-data', [], [
-            'amount' => $amount,
-            'form_type' => $formType,
-        ]);
+        return $this->exec(
+            'POST',
+            sprintf('clients/%s/payment-qr', $clientId),
+            [],
+            [
+                'amount' => $amount,
+                'qr_ttl_min' => $qrTtlMin,
+                'request_id' => $requestId
+            ]
+        );
     }
 
     /**

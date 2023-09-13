@@ -3,7 +3,7 @@ Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Vers
 
 ## [v1.37.0] - 2023-09-06
 ### Added
-- Method `createFormData`
+- Method `sbpQrCodePayment`
 
 ## [v1.36.0] - 2023-06-05
 ### Added
