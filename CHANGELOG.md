@@ -1,6 +1,10 @@
 # Changelog
 Used [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.37.0] - 2023-09-06
+### Added
+- Method `sbpQrCodePayment`
+
 ## [v1.36.0] - 2023-06-05
 ### Added
 - Method `clientDelete`

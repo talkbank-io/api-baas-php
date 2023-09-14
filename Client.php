@@ -1738,6 +1738,23 @@ class Client
     }
 
     /**
+     * POST /api/v1/clients/{client_id}/payment-qr
+     */
+    public function sbpQrCodePayment(string $clientId, int $amount, int $qrTtlMin, string $requestId)
+    {
+        return $this->exec(
+            'POST',
+            sprintf('clients/%s/payment-qr', $clientId),
+            [],
+            [
+                'amount' => $amount,
+                'qr_ttl_min' => $qrTtlMin,
+                'request_id' => $requestId
+            ]
+        );
+    }
+
+    /**
      * @return string
      */
     public function getToken(): ?string
