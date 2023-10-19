@@ -1738,21 +1738,28 @@ class Client
     }
 
     /**
-     * POST /api/v1/clients/{client_id}/payment-qr
+     * POST /api/v1/sbp/clients/{client_id}/payment-qr
      */
-    public function sbpQrCodePayment(string $clientId, int $amount, int $qrTtlMin, string $requestId)
-    {
+    public function sbpQrCodePayment(
+        string $clientId,
+        string $type,
+        int $qrTtlMin,
+        string $requestId,
+        int $amount = null
+    ) {
         return $this->exec(
             'POST',
-            sprintf('clients/%s/payment-qr', $clientId),
+            sprintf('sbp/clients/%s/payment-qr', $clientId),
             [],
-            [
-                'amount' => $amount,
+            $this->filterParams([
+                'type' => $type,
                 'qr_ttl_min' => $qrTtlMin,
-                'request_id' => $requestId
-            ]
+                'request_id' => $requestId,
+                'amount' => $amount,
+            ])
         );
     }
+
 
     /**
      * @return string
