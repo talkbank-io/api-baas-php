@@ -1742,7 +1742,7 @@ class Client
      */
     public function sbpQrCodePayment(
         string $clientId,
-        string $type,
+        bool $isStatic,
         int $qrTtlMin,
         string $requestId,
         int $amount = null
@@ -1752,7 +1752,7 @@ class Client
             sprintf('sbp/clients/%s/payment-qr', $clientId),
             [],
             $this->filterParams([
-                'type' => $type,
+                'is_static' => $isStatic,
                 'qr_ttl_min' => $qrTtlMin,
                 'request_id' => $requestId,
                 'amount' => $amount,
